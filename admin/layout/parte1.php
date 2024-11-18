@@ -12,7 +12,7 @@ if(isset($_SESSION['sesion_email'])){
     WHERE usu.email = '$email_sesion' AND usu.estado = '1'");
   $query_sesion->execute();
 
-  $datos_sesion_usuarios = $query_sesion->fetchAll(fetch_style: PDO:: FETCH_ASSOC);
+  $datos_sesion_usuarios = $query_sesion->fetchAll(PDO:: FETCH_ASSOC);
   foreach ($datos_sesion_usuarios as $datos_sesion_usuario){
     $nombre_sesion_usuario = $datos_sesion_usuario['email'];
     $rol_sesion_usuario = $datos_sesion_usuario['nombre_rol'];
@@ -37,7 +37,7 @@ $sql_roles_permisos = "SELECT * FROM roles_permisos as rolper
     WHERE rolper.estado = '1' ";
 $query_roles_permisos = $pdo->prepare($sql_roles_permisos);
 $query_roles_permisos->execute();
-$roles_permisos = $query_roles_permisos->fetchAll(fetch_style: PDO::FETCH_ASSOC);
+$roles_permisos = $query_roles_permisos->fetchAll(PDO::FETCH_ASSOC);
 
 $contadorpermiso = 0;
 

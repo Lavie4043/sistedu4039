@@ -197,7 +197,7 @@ INNER JOIN personas as per ON per.usuario_id = usu.id_usuario
 where usu.estado = '1' AND usu.email = '$email_sesion'";
 $query_datos = $pdo->prepare($sql_datos);
 $query_datos->execute();
-$datos = $query_datos->fetchAll(fetch_style: PDO::FETCH_ASSOC);
+$datos = $query_datos->fetchAll(PDO::FETCH_ASSOC);
 foreach($datos as $dato){
 $nombre = $dato['nombres'];
 $nombre_rol = $dato['nombre_rol'];

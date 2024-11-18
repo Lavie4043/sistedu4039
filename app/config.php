@@ -3,7 +3,7 @@
 define('SERVIDOR','localhost');
 define('USUARIO','root');
 define('PASSWORD','');
-define('BD','sistemaeducativo4039');
+define('BD','educativo4039');
 define('APP_NAME','SISTEMA DE GESTION ESCOLAR 4039');
 define('APP_URL','http://localhost/sistemaeducativo4039');
 define('KEY_API_MAPS','');

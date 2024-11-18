@@ -8,7 +8,7 @@ $sql = "SELECT * FROM usuarios WHERE email = '$email' AND estado = '1'";
 $query = $pdo->prepare($sql);
 $query->execute();
 
-$usuarios = $query->fetchAll(fetch_style: PDO::FETCH_ASSOC);
+$usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
 //print_r($usuarios);
 
 $contador = 0;
