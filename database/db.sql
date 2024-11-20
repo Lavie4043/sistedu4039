@@ -81,6 +81,24 @@ CREATE TABLE docentes (
 )ENGINE=InnoDB;
 
 
+CREATE TABLE preceptores (
+
+    id_preceptore        INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    persona_id        INT (11) NOT NULL,
+        
+    fyh_creacion DATETIME NULL,
+    fyh_actualizacion DATETIME NULL,
+    estado VARCHAR (11),
+    cargo  VARCHAR (255) NOT NULL,
+    antiguedad VARCHAR (255) NOT NULL,
+
+    FOREIGN KEY (persona_id) REFERENCES personas (id_persona) on delete no action on update cascade
+    
+)ENGINE=InnoDB;
+
+
+
+
 CREATE TABLE estudiantes (
 
     id_estudiante     INT (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

@@ -63,7 +63,7 @@ include('../app/config.php');
       $mensaje = $_SESSION['mensaje'];
       ?>
       <script>
-        var mensaje = '<?=mensaje;?>';
+        var mensaje = '<?=$mensaje;?>';
         alert(mensaje);
       </script>
         <?php
