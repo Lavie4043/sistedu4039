@@ -254,6 +254,23 @@ CREATE TABLE asignaciones (
  FOREIGN KEY (grado_id) REFERENCES grados (id_grado) on delete no action on update cascade     
 )ENGINE=InnoDB;
 
+CREATE TABLE asignacionesprece (
+
+    id_asignacionprece        INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    preceptore_id           INT   (11) NOT NULL,
+    nivel_id             INT   (11) NOT NULL,
+    grado_id             INT   (11) NOT NULL,
+             
+    fyh_creacion DATETIME NULL,
+    fyh_actualizacion DATETIME NULL,
+    estado VARCHAR (11),
+
+ FOREIGN KEY (preceptore_id) REFERENCES preceptores (id_preceptore) on delete no action on update cascade, 
+ FOREIGN KEY (nivel_id) REFERENCES niveles (id_nivel) on delete no action on update cascade,
+ 
+ FOREIGN KEY (grado_id) REFERENCES grados (id_grado) on delete no action on update cascade     
+)ENGINE=InnoDB;
+
 CREATE TABLE calificaciones (
 
     id_calificacion      INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

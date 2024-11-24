@@ -88,7 +88,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #6495ED">
-        <h5 class="modal-title" id="exampleModalLabel"><b> asignadas</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel"><b> Cursos asignados</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -110,10 +110,10 @@
             </tr>
                 <?php
                 $contador = 0;
-                foreach ($asignaciones as $asignacione){
-                  $id_asignacion = $asignacione['id_asignacion'];
+                foreach ($asignacionesprece as $asignacionprece){
+                  $id_asignacionprece = $asignacionesprec['id_asignacionprece'];
                     
-                    if($asignacione['preceptore_id']==$id_preceptore){ $contador = $contador + 1; ?>
+                    if($asignacionprece['preceptore_id']==$id_preceptore){ $contador = $contador + 1; ?>
                         <tr>
                             <td style="color:#000000"> <center><?=$contador;?></center></td>
                             
@@ -124,9 +124,9 @@
                             
                 <div class="btn-group" usuario="group" aria-label="Basic example">
                      
-              <a data-toggle="modal" data-target="#Modal_edicion<?=$id_asignacion;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
+              <a data-toggle="modal" data-target="#Modal_edicion<?=$id_asignacionprece;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
 
-              <div class="modal fade" id="Modal_edicion<?=$id_asignacion;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="Modal_edicion<?=$id_asignacionprece;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #0fbf0d">
@@ -143,7 +143,7 @@
                         <div class="col-md-12">
                        
             <div class="form-group"> 
-              <input type="text" name="id_asignacion" value= "<?=$id_asignacion;?>"> </input>
+              <input type="text" name="id_asignacionprece" value= "<?=$id_asignacionprece;?>"> </input>
               <label for="" style="color:#000000">Nivel</label>
               <select name="id_nivel" id"" class="form-control>
                 <?php
@@ -190,8 +190,8 @@
       
 
                     
-                    <form action="<?=APP_URL;?>/app/controllers/preceptores/delete_asignacion.php" onclick="preguntar<?=$id_asignacion;?>(event)" method="post" id="miFormulario<?=$id_asignacion;?>">
-                        <input type="text" name="id_asignacion" value="<?=$id_asignacion;?>" hidden>
+                    <form action="<?=APP_URL;?>/app/controllers/preceptores/delete_asignacion.php" onclick="preguntar<?=$id_asignacionprece;?>(event)" method="post" id="miFormulario<?=$id_asignacionprece;?>">
+                        <input type="text" name="id_asignacionprece" value="<?=$id_asignacionprece;?>" hidden>
                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
 
                     </form>
@@ -217,7 +217,7 @@
                     
                  
     <script>
-    function preguntar<?=$id_asignacion;?>(event) {
+    function preguntar<?=$id_asignacionprece;?>(event) {
       event.preventDefault();
       Swal.fire({
         title: 'Eliminar registro',
@@ -231,7 +231,7 @@
 
      }).then ((result) => {
       if (result.isConfirmed) {
-        var form = $('#miFormulario<?=$id_asignacion;?>');
+        var form = $('#miFormulario<?=$id_asignacionprece;?>');
         form.submit();
       }
      });
@@ -328,17 +328,17 @@
       <div class="modal-body">
 
       <form action="<?=APP_URL;?>/app/controllers/preceptores/create_asignaciones.php" method="post">
-      <div class="row">
+
       <div class="col-md-12"> 
             <div class="form-group"> 
-              <label for="">Preceptores</label>
+              <label for="">Preceptor</label>
               <select name="id_preceptore" id"" class="form-control>
                 <?php
                 foreach ($preceptores as $preceptore){
-                    $id_preceptore = $preceptore['id_preceptore']; ?>
-                      <option value="<?=$id_preceptore;?>"><?=$preceptore['apellidos']." ".$preceptore['nombres'];?></option>
-                  <?php
-                  }
+                  $id_preceptore = $preceptore['id_preceptore']; ?>
+                    <option value="<?=$id_preceptore;?>"><?=$preceptore['apellidos']." ".$preceptore['nombres'];?></option>
+                <?php
+                }
                 ?>
                 
               </select>
@@ -346,7 +346,8 @@
 
           </div>
 
-          <div class="col-md-12"> 
+
+      <div class="col-md-12"> 
             <div class="form-group"> 
               <label for="">Nivel</label>
               <select name="id_nivel" id"" class="form-control>
@@ -363,6 +364,7 @@
 
           </div>
 
+          
           <div class="col-md-12"> 
             <div class="form-group"> 
               <label for="">Cursos</label>
@@ -381,9 +383,9 @@
           </div>
 
           
-        </div>  
+        
 
-      </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary">Registrar</button>

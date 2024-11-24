@@ -25,7 +25,7 @@ foreach ($preceptores as $preceptore){
     $email = $preceptore['email'];
     $cargo = $preceptore['cargo'];
     $antiguedad = $preceptore['antiguedad'];
-    $fyh_creacion = $preceptore['fyh_creacion'];
+    $fyh_creacion = $preceptore['fechaHora'];
     $estado = $preceptore['estado'];
 
     

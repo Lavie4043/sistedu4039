@@ -7,3 +7,5 @@ INNER JOIN preceptores as pre On pre.persona_id = per.id_persona WHERE pre.estad
 $query_preceptores = $pdo->prepare($sql_preceptores);
 $query_preceptores->execute();
 $preceptores = $query_preceptores->fetchAll(PDO::FETCH_ASSOC);
+
+
