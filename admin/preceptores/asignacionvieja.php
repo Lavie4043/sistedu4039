@@ -120,8 +120,7 @@
                             <td style="color:#000000"><?=$asignacionprece['turno'];?></td>
                             <td style="color:#000000"><?=$asignacionprece['curso'];?></td>
                             <td style="color:#000000"><?=$asignacionprece['paralelo'];?></td>
-                            <td>
-                            
+                    
                 <div class="btn-group" usuario="group" aria-label="Basic example">
                      
               <a data-toggle="modal" data-target="#Modal_edicion<?=$id_asignacionprece;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
@@ -130,7 +129,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #0fbf0d">
-        <h5 class="modal-title" id="exampleModalLabel"><b>Asignación de cursos</b></h5>
+        <h5 class="modal-title" id="exampleModalLabel"><b>AAAAAA </b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -143,7 +142,7 @@
                         <div class="col-md-12">
                        
             <div class="form-group"> 
-              <input type="text" name="id_asignacion" value= "<?=$id_asignacionprece;?>"> </input>
+              <input type="text" name="id_asignacionprece" value= "<?=$id_asignacionprece;?>"> </input>
               <label for="" style="color:#000000">Nivel</label>
               <select name="id_nivel" id"" class="form-control>
                 <?php
@@ -176,9 +175,6 @@
 
           </div>
 
-         
-            
-
           </div>
           
       </div>
@@ -193,8 +189,8 @@
       
 
                     
-                    <form action="<?=APP_URL;?>/app/controllers/docentes/delete_asignacion.php" onclick="preguntar<?=$id_asignacion;?>(event)" method="post" id="miFormulario<?=$id_asignacion;?>">
-                        <input type="text" name="id_asignacion" value="<?=$id_asignacion;?>" hidden>
+                    <form action="<?=APP_URL;?>/app/controllers/preceptores/delete_asignacion.php" onclick="preguntar<?=$id_asignacionprece;?>(event)" method="post" id="miFormulario<?=$id_asignacionprece;?>">
+                        <input type="text" name="id_asignacionprece" value="<?=$id_asignacionprece;?>" hidden>
                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
 
                     </form>
@@ -207,7 +203,7 @@
                     }
                 }
                 ?>
-        </table> 
+        </table>
             
 
       </div>
