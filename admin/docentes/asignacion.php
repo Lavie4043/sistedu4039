@@ -142,12 +142,13 @@
       <div class="modal-body">
 
       <form action="<?=APP_URL;?>/app/controllers/docentes/update_asignaciones.php" method="post">
-      
-                      <div class="row"> 
-                        <div class="col-md-12">
+      <div class="row"> 
+      <div class="col-md-12">
                        
-            <div class="form-group"> 
-              <input type="text" name="id_asignacion" value= "<?=$id_asignacion;?>"> </input>
+            <class="form-group"> 
+                    
+             <input type="text" name="id_asignacion" value="<?=$id_asignacion;?>" hidden> 
+            
               <label for="" style="color:#000000">Nivel</label>
               <select name="id_nivel" id"" class="form-control>
                 <?php
@@ -195,7 +196,7 @@
               </select>
             </div>
 
-          </div>
+          
 
           </div>
           

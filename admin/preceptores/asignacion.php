@@ -135,7 +135,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body"> 
 
       <form action="<?=APP_URL;?>/app/controllers/preceptores/update_asignaciones.php" method="post">
       
@@ -143,7 +143,8 @@
                         <div class="col-md-12">
                        
             <div class="form-group"> 
-              <input type="text" name="id_asignacion" value= "<?=$id_asignacionprece;?>"> </input>
+            <input type="text" name="id_asignacionprece" value="<?=$id_asignacionprece;?>" hidden>
+              
               <label for="" style="color:#000000">Nivel</label>
               <select name="id_nivel" id"" class="form-control>
                 <?php
@@ -181,6 +182,7 @@
 
           </div>
           
+          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -193,8 +195,8 @@
       
 
                     
-                    <form action="<?=APP_URL;?>/app/controllers/docentes/delete_asignacion.php" onclick="preguntar<?=$id_asignacion;?>(event)" method="post" id="miFormulario<?=$id_asignacion;?>">
-                        <input type="text" name="id_asignacion" value="<?=$id_asignacion;?>" hidden>
+                    <form action="<?=APP_URL;?>/app/controllers/preceptores/delete_asignacion.php" onclick="preguntar<?=$id_asignacionprece;?>(event)" method="post" id="miFormulario<?=$id_asignacionprece;?>">
+                        <input type="text" name="id_asignacionprece" value="<?=$id_asignacionprece;?>" hidden>
                         <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
 
                     </form>

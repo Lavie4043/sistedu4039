@@ -5,7 +5,7 @@ $id_docente = $_GET['id'];
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
     include('../../layout/mensajes.php');
-    include('../../app/controllers/docentes/datos_del_docente.php');
+    include('../../app/controllers/preceptores/datos_del_docente.php');
     include('../../app/controllers/roles/listado_de_roles.php');
   
 
