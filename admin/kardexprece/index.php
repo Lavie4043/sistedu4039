@@ -4,11 +4,10 @@
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
     include('../../layout/mensajes.php');
-    include('../../app/controllers/docentes/listado_de_docentes.php');
 
-    include('../../app/controllers/docentes/listado_de_asignaciones.php');
+    include('../../app/controllers/preceptores/listado_de_asignaciones.php');
     include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
-    include('../../app/controllers/kardex/listado_de_kardexs.php');
+    include('../../app/controllers/kardexprece/listado_de_kardexs.php');
   
     ?>
 
@@ -42,48 +41,48 @@
                     <th><center>Turno</center></th>
                     <th><center>Grado</center></th>
                     <th><center>Paralelo</center></th>
-                    <th><center>Materia</center></th>
+                    
                     <th><center>Acciones</center></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $contador = 0;
-                foreach ($asignaciones as $asignacione){
-                    $id_grado = $asignacione['id_grado'];
-                    if($email_sesion == $asignacione['email']){ 
-                        $id_asignacion = $asignacione['id_asignacion'];
-                        $docente_id = $asignacione['docente_id'];
+                foreach ($asignacionesprece as $asignacionprece){
+                    $id_grado = $asignacionesprece['id_grado'];
+                    if($email_sesion == $asignacionprece['email']){ 
+                        $id_asignacionprece = $asignacionprece['id_asignacionprece'];
+                        $preceptore_id = $asignacionprece['preceptore_id'];
                         $contador = $contador + 1; ?>
                     <tr>
                         <td><center><?=$contador;?></center></td>
-                        <td><center><?=$asignacione['nivel'];?></center></td>
-                        <td><center><?=$asignacione['turno'];?></center></td>
-                        <td><center><?=$asignacione['curso'];?></center></td>
-                        <td><center><?=$asignacione['paralelo'];?></center></td>
-                        <td><center><?=$asignacione['nombre_materia'];?></center></td>
+                        <td><center><?=$asignacionprece['nivel'];?></center></td>
+                        <td><center><?=$asignacionprece['turno'];?></center></td>
+                        <td><center><?=$asignacionprece['curso'];?></center></td>
+                        <td><center><?=$asignacionprece['paralelo'];?></center></td>
+                        
                         <td><center>
-                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacion;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
+                            <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacionprece;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
                             <!-- Modal -->
-<div class="modal fade" id="exampleModal<?=$id_asignacion;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal<?=$id_asignacionprece;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #eb2d14">
-        <h5 class="modal-title" id="exampleModalLabel style=color: white">Reporte del curso -  <?=$asignacione['curso'];?> - <?=$asignacione['paralelo'];?></h5>
+        <h5 class="modal-title" id="exampleModalLabel style=color: white">Reporte del curso -  <?=$asignacionprece['curso'];?> - <?=$asignacionprece['paralelo'];?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
 
-      <form action="<?=APP_URL;?>/app/controllers/kardex/create.php" method="post">
+      <form action="<?=APP_URL;?>/app/controllers/kardexprece/create.php" method="post">
 
     
         <div class="row"> 
-        <div class="col-md-12">
+        <div class="col-md-6">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Fecha</label>
-            <input type="text" name="docente_id" value="<?=$docente_id;?>" hidden> </input>
+            <input type="text" name="preceptore_id" value="<?=$preceptore_id;?>" hidden> </input>
             <input type="date" name="fecha" class="form-control" > </input>
 
            
@@ -91,16 +90,16 @@
             </div>
         </div>
 
-        </div>
+        
 
-        <div class="row"> 
-        <div class="col-md-12">
+        
+        <div class="col-md-6">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Estudiante</label>
             <select name="estudiante_id" id="" class="form-control"> 
               <?php
               foreach ($estudiantes as $estudiante){
-                if($estudiante['id_grado']==$asignacione['grado_id']){
+                if($estudiante['id_grado']==$asignacionprece['grado_id']){
                   $id_estudiante = $estudiante['id_estudiante'];?>
                  <option value="<?=$id_estudiante;?>"><?=$estudiante['apellidos']." ".$estudiante['nombres'];?> </option>
                  <?php
@@ -118,13 +117,7 @@
         </div>
         <div class="row"> 
         <div class="col-md-12">
-        <div class="form-group">
-            <label for="" style="color: #eb2d14">Materia</label>
-            <input type="text" class="form-control" value="<?=$asignacione['nombre_materia'];?>" disabled> </input>
-            <input type="text" class="form-control" name="materia_id" value="<?=$asignacione['id_materia'];?>" hidden> </input>
-            
-            </div>
-        </div>
+        
 
         </div>
 
@@ -142,7 +135,7 @@
 
         </div>
 
-        <div class="row"> 
+        
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
@@ -151,6 +144,22 @@
             </div>
         </div>
         </div>
+
+        <div class="row"> 
+        <div class="col-md-12">
+        <div class="form-group">
+                        <label for="">Archivo</label>
+                                <input type="file" name="file" id="file"  class="form-control">
+                                <br />
+                                
+                                <output id="list"></output>
+             </div>
+            
+            </div>
+
+      </div>
+      
+
 
       </div>
       <div class="modal-footer">
@@ -193,11 +202,12 @@
                     <th><center>Turno</center></th>
                     <th><center>Grado</center></th>
                     <th><center>División</center></th>
-                    <th><center>Materia</center></th>
                     <th><center>Estudiante</center></th>
                     <th><center>Fecha de reporte</center></th>
                     <th><center>Observacion</center></th>
                     <th><center>Nota</center></th>
+                    <th><center>Archivo</center></th>
+
                     <th><center>Acciones</center></th>
                 </tr>
                 </thead>
@@ -222,12 +232,14 @@
                         <td><center><?=$estudiante['turno'];?></center></td>
                         <td><center><?=$estudiante['curso'];?></center></td>
                         <td><center><?=$estudiante['paralelo'];?></center></td>
-                        <td><center><?=$kardex['nombre_materia'];?></center></td>
+                        
                         
                         <td><center><?=$estudiante['apellidos']."  ".$estudiante['nombres'];?></center></td>
-                        <td><center><?=$kardex['fecha'];?></center></td>
-                        <td><center><?=$kardex['observacion'];?></center></td>
-                        <td><center><?=$kardex['nota'];?></center></td>
+                        <td><center><?=$kardexprece['fecha'];?></center></td>
+                        <td><center><?=$kardexprece['observacion'];?></center></td>
+                        <td><center><?=$kardexprece['nota'];?></center></td>
+                        <td><center><?=$kardexprece['documentoprece'];?></center></td>
+
                     <?php
                         }
                      }
@@ -238,15 +250,15 @@
 <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_editar<?=$id_kardex;?>"><i class="bi bi-pencil"></i></a> 
                     
 
-<form action="<?=APP_URL;?>/app/controllers/kardex/delete.php" onclick="preguntar<?=$id_kardex;?>(event)" method="post" id="miFormulario<?=$id_kardex;?>">
-<input type="text" name="id_kardex" value="<?=$id_kardex;?>" hidden>
+<form action="<?=APP_URL;?>/app/controllers/kardexprece/delete.php" onclick="preguntar<?=$id_kardexprece;?>(event)" method="post" id="miFormulario<?=$id_kardexprece;?>">
+<input type="text" name="id_kardexprece" value="<?=$id_kardexprece;?>" hidden>
 <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
 
                         
 
                   </form>
                     <script>
-    function preguntar<?=$id_kardex;?>(event) {
+    function preguntar<?=$id_kardexprece;?>(event) {
       event.preventDefault();
       Swal.fire({
         title: 'Eliminar registro',
@@ -260,7 +272,7 @@
 
      }).then ((result) => {
       if (result.isConfirmed) {
-        var form = $('#miFormulario<?=$id_kardex;?>');
+        var form = $('#miFormulario<?=$id_kardexprece;?>');
         form.submit();
       }
      });
@@ -269,7 +281,7 @@
                                  
                             
                             <!-- Modal -->
-<div class="modal fade" id="modal_editar<?=$id_kardex;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_editar<?=$id_kardexprece;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #008f39">
@@ -281,16 +293,16 @@
       </div>
       <div class="modal-body">
 
-      <form action="<?=APP_URL;?>/app/controllers/kardex/update.php" method="post">
+      <form action="<?=APP_URL;?>/app/controllers/kardexprece/update.php" method="post">
 
     
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Fecha</label>
-            <input type="text" value="<?=$id_kardex;?>" name="id_kardex" hidden> </input>
-            <input type="text" name="docente_id" value="<?=$docente_id;?>" hidden> </input>
-            <input type="date" value= "<?=$kardex['fecha'];?>"name="fecha" class="form-control" > </input>
+            <input type="text" value="<?=$id_kardexprece;?>" name="id_kardexprece" hidden> </input>
+            <input type="text" name="preceptore_id" value="<?=$preceptore_id;?>" hidden> </input>
+            <input type="date" value= "<?=$kardexprece['fecha'];?>"name="fecha" class="form-control" > </input>
 
            
             
@@ -322,29 +334,19 @@
             </div>
         </div>
         </div>
-        <div class="row"> 
-        <div class="col-md-12">
-        <div class="form-group">
-            <label for="" style="color: #eb2d14">Materia</label>
-            <input type="text" class="form-control" value="<?=$kardex['nombre_materia'];?>" disabled> </input>
-            <input type="text" class="form-control" name="materia_id" value="<?=$kardex['id_materia'];?>" hidden> </input>
-            
-            </div>
-        </div>
-
-        </div>
+        
 
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Observación</label>
             <select name="observacion" id="" class="form-control"> 
-            <option value="DISCIPLINA" <?=$kardex['observacion']=="DISCIPLINA" ? 'selected' : ''?>>DISCIPLINA </option>
+            <option value="DISCIPLINA" <?=$kardexprece['observacion']=="DISCIPLINA" ? 'selected' : ''?>>DISCIPLINA </option>
 
-            <option value="ASISTENCIA" <?=$kardex['observacion']=='ASISTENCIA'? 'selected': ''?>>ASISTENCIA</option>
+            <option value="ASISTENCIA" <?=$kardexprece['observacion']=='ASISTENCIA'? 'selected': ''?>>ASISTENCIA</option>
 
             
-            <option value="RENDIMIENTO ACADÉMICO"<?=$kardex['observacion']=="RENDIMIENTO ACADÉMICO" ? 'selected': ''?>>RENDIMIENTO ACADÉMICO</option>
+            <option value="RENDIMIENTO ACADÉMICO"<?=$kardexprece['observacion']=="RENDIMIENTO ACADÉMICO" ? 'selected': ''?>>RENDIMIENTO ACADÉMICO</option>
             <option value="OTROS">OTROS</option>
             </div>
         </div>
@@ -355,7 +357,7 @@
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
-            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardex['nota'];?> </textarea>
+            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardexprece['nota'];?> </textarea>
                       
             </div>
         </div>

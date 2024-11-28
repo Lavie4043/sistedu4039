@@ -315,6 +315,28 @@ CREATE TABLE kardexs (
      
 )ENGINE=InnoDB;
 
+CREATE TABLE kardexsprece (
+
+    id_kardexprece            INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    preceptore_id           INT   (11) NOT NULL,
+    estudiante_id        INT   (11) NOT NULL,
+    fecha                VARCHAR (50) NOT NULL,
+    observacion          VARCHAR (255) NOT NULL,
+    nota                 TEXT     NOT NULL,
+    documentoprece       VARCHAR (255) NULL,
+    
+  
+      
+    fyh_creacion DATETIME NULL,
+    fyh_actualizacion DATETIME NULL,
+    estado VARCHAR (11),
+
+ FOREIGN KEY (preceptore_id) REFERENCES preceptores (id_preceptore) on delete no action on update cascade,
+ 
+ FOREIGN KEY (estudiante_id) REFERENCES estudiantes (id_estudiante) on delete no action on update cascade
+     
+)ENGINE=InnoDB;
+
 CREATE TABLE permisos (
 
     id_permiso        INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
