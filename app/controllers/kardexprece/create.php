@@ -10,9 +10,10 @@ $observacion = $_POST['observacion'];
 $nota = $_POST['nota'];
 $documentoprece = $_POST['documentoprece'];
 
+
 $sentencia = $pdo->prepare('INSERT INTO kardexsprece 
         (preceptore_id, estudiante_id, fecha, observacion, nota, documentoprece, fyh_creacion, estado)
-VALUES ( :preceptore_id, :estudiante_id, :fecha,:observacion, :nota, :documentoprece, :fyh_creacion,:estado)');
+VALUES  ( :preceptore_id, :estudiante_id, :fecha, :observacion, :nota, :documentoprece, :fyh_creacion, :estado)');
 
 
 $sentencia->bindParam(':preceptore_id',$preceptore_id);
@@ -21,6 +22,7 @@ $sentencia->bindParam(':fecha',$fecha);
 $sentencia->bindParam(':observacion',$observacion);
 $sentencia->bindParam(':nota',$nota);
 $sentencia->bindParam(':documentoprece',$documentoprece);
+
 
 $sentencia->bindParam(':fyh_creacion',$fechaHora);
 $sentencia->bindParam(':estado',$estado_de_registro);

@@ -4,6 +4,7 @@
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
     include('../../layout/mensajes.php');
+    include('../../app/controllers/preceptores/listado_de_preceptores.php');
 
     include('../../app/controllers/preceptores/listado_de_asignaciones.php');
     include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
@@ -41,6 +42,7 @@
                     <th><center>Turno</center></th>
                     <th><center>Grado</center></th>
                     <th><center>Paralelo</center></th>
+                    <th><center>Documentos</center></th>
                     
                     <th><center>Acciones</center></th>
                 </tr>
@@ -49,9 +51,9 @@
                 <?php
                 $contador = 0;
                 foreach ($asignacionesprece as $asignacionprece){
-                    $id_grado = $asignacionesprece['id_grado'];
+                    $id_grado = $asignacionprece['id_grado'];
                     if($email_sesion == $asignacionprece['email']){ 
-                        $id_asignacionprece = $asignacionprece['id_asignacionprece'];
+                        $id_asignacion = $asignacionprece['id_asignacionprece'];
                         $preceptore_id = $asignacionprece['preceptore_id'];
                         $contador = $contador + 1; ?>
                     <tr>
@@ -60,6 +62,7 @@
                         <td><center><?=$asignacionprece['turno'];?></center></td>
                         <td><center><?=$asignacionprece['curso'];?></center></td>
                         <td><center><?=$asignacionprece['paralelo'];?></center></td>
+                        
                         
                         <td><center>
                             <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacionprece;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
@@ -79,7 +82,7 @@
 
     
         <div class="row"> 
-        <div class="col-md-6">
+        <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Fecha</label>
             <input type="text" name="preceptore_id" value="<?=$preceptore_id;?>" hidden> </input>
@@ -90,10 +93,10 @@
             </div>
         </div>
 
-        
+        </div>
 
-        
-        <div class="col-md-6">
+        <div class="row"> 
+        <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Estudiante</label>
             <select name="estudiante_id" id="" class="form-control"> 
@@ -115,11 +118,7 @@
             </div>
         </div>
         </div>
-        <div class="row"> 
-        <div class="col-md-12">
         
-
-        </div>
 
         <div class="row"> 
         <div class="col-md-12">
@@ -135,7 +134,7 @@
 
         </div>
 
-        
+        <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
@@ -144,22 +143,6 @@
             </div>
         </div>
         </div>
-
-        <div class="row"> 
-        <div class="col-md-12">
-        <div class="form-group">
-                        <label for="">Archivo</label>
-                                <input type="file" name="file" id="file"  class="form-control">
-                                <br />
-                                
-                                <output id="list"></output>
-             </div>
-            
-            </div>
-
-      </div>
-      
-
 
       </div>
       <div class="modal-footer">
@@ -202,25 +185,24 @@
                     <th><center>Turno</center></th>
                     <th><center>Grado</center></th>
                     <th><center>División</center></th>
+                    
                     <th><center>Estudiante</center></th>
                     <th><center>Fecha de reporte</center></th>
                     <th><center>Observacion</center></th>
                     <th><center>Nota</center></th>
-                    <th><center>Archivo</center></th>
-
                     <th><center>Acciones</center></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $contador_reportes = 0;
-                foreach ($kardexs as $kardex){
+                foreach ($kardexsprece as $kardexprece){
                    
-                    if($email_sesion == $kardex['email']){ 
-                    $id_kardex = $kardex['id_kardex'];
+                    if($email_sesion == $kardexprece['email']){ 
+                    $id_kardexprece = $kardexprece['id_kardexprece'];
                     
-                    $estudiante_id = $kardex['estudiante_id'];   
-                    $grado_id = $kardex['grado_id'];    
+                    $estudiante_id = $kardexprece['estudiante_id'];   
+                    $grado_id = $kardexprece['grado_id'];    
 
                     $contador_reportes = $contador_reportes + 1; ?>
                     <tr>
@@ -232,14 +214,12 @@
                         <td><center><?=$estudiante['turno'];?></center></td>
                         <td><center><?=$estudiante['curso'];?></center></td>
                         <td><center><?=$estudiante['paralelo'];?></center></td>
-                        
+                        <td><center><?=$kardexprece['nombre_materia'];?></center></td>
                         
                         <td><center><?=$estudiante['apellidos']."  ".$estudiante['nombres'];?></center></td>
                         <td><center><?=$kardexprece['fecha'];?></center></td>
                         <td><center><?=$kardexprece['observacion'];?></center></td>
                         <td><center><?=$kardexprece['nota'];?></center></td>
-                        <td><center><?=$kardexprece['documentoprece'];?></center></td>
-
                     <?php
                         }
                      }
@@ -247,7 +227,7 @@
                      <td> 
                       
 
-<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_editar<?=$id_kardex;?>"><i class="bi bi-pencil"></i></a> 
+<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_editar<?=$id_kardexprece;?>"><i class="bi bi-pencil"></i></a> 
                     
 
 <form action="<?=APP_URL;?>/app/controllers/kardexprece/delete.php" onclick="preguntar<?=$id_kardexprece;?>(event)" method="post" id="miFormulario<?=$id_kardexprece;?>">
@@ -357,7 +337,7 @@
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
-            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardexprece['nota'];?> </textarea>
+            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardex['nota'];?> </textarea>
                       
             </div>
         </div>
