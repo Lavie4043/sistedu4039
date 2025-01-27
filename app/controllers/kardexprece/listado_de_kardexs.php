@@ -13,3 +13,4 @@ INNER JOIN estudiantes as est On est.id_estudiante = kap.estudiante_id
 $query_kardexsprece = $pdo->prepare($sql_kardexsprece);
 $query_kardexsprece->execute();
 $kardexsprece = $query_kardexsprece->fetchAll(PDO::FETCH_ASSOC);
+

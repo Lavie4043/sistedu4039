@@ -70,15 +70,7 @@ include('../app/config.php');
     }    
         ?>
 
-      <script>
-        Swal.fire({
-          position: "top-end",
-          icon: "error",
-          title: "Los datos introducidos son incorrectos",
-          showConfirmButton: false,
-          timer: 4000
-        });
-      </script>  
+      
     <?php
         session_destroy();
     

@@ -42,7 +42,7 @@
                     <th><center>Turno</center></th>
                     <th><center>Grado</center></th>
                     <th><center>Paralelo</center></th>
-                    <th><center>Documentos</center></th>
+                    
                     
                     <th><center>Acciones</center></th>
                 </tr>
@@ -53,7 +53,7 @@
                 foreach ($asignacionesprece as $asignacionprece){
                     $id_grado = $asignacionprece['id_grado'];
                     if($email_sesion == $asignacionprece['email']){ 
-                        $id_asignacion = $asignacionprece['id_asignacionprece'];
+                        $id_asignacionprece = $asignacionprece['id_asignacionprece'];
                         $preceptore_id = $asignacionprece['preceptore_id'];
                         $contador = $contador + 1; ?>
                     <tr>
@@ -66,7 +66,9 @@
                         
                         <td><center>
                             <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacionprece;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
-                            <!-- Modal -->
+                           
+                            <!-- Modal Create-->
+
 <div class="modal fade" id="exampleModal<?=$id_asignacionprece;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -78,7 +80,7 @@
       </div>
       <div class="modal-body">
 
-      <form action="<?=APP_URL;?>/app/controllers/kardexprece/create.php" method="post">
+      <form action="<?=APP_URL;?>/app/controllers/kardexprece/create.php" method="post" enctype="multipart/form-data">
 
     
         <div class="row"> 
@@ -137,14 +139,61 @@
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
+            <label for="" style="color: #eb2d14">SUBA EL DOCUMENTO</label>
+            <input type="file" id="file" name="file" class="form-control"> </input>
+            <output id="list"></output>
+                      
+        </div>
+        </div>
+        </div>
+
+        <script>
+              function archivo(evt) {
+                  var files = evt.target.files; // FileList object
+             
+                  // Obtenemos la imagen del campo "file".
+                  for (var i = 0, f; f = files[i]; i++) {
+                    //Solo admitimos imágenes.
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+             
+                    var reader = new FileReader();
+             
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                          // Insertamos la imagen
+                         // Insertamos la imagen
+                         document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" width="300px" title="', escape(theFile.name), '"/>'].join('');
+                        };
+                    })(f);
+             
+                    reader.readAsDataURL(f);
+                  }
+              }
+             
+              document.getElementById('file').addEventListener('change', archivo, false);
+      </script>
+
+        <div class="row"> 
+        <div class="col-md-12">
+        <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
             <textarea name="nota" id="" cols="30" class="form-control" rows="5"> </textarea>
                       
             </div>
         </div>
         </div>
+        </div>
 
-      </div>
+        
+
+        
+
+        
+        
+        
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-danger">Registrar</button>
@@ -167,7 +216,10 @@
   </div>
   </div> 
         <br> <br>
-        <div class="row">
+ 
+        <!--Acá poner en la tabla la foto  Index y Show-->
+
+         <div class="row">
           <div class="col-md-12">
             <div class="card card-outline card-info">
               <div class="card-header">
@@ -190,11 +242,14 @@
                     <th><center>Fecha de reporte</center></th>
                     <th><center>Observacion</center></th>
                     <th><center>Nota</center></th>
+                    <th><center>Documento</center></th>
+
                     <th><center>Acciones</center></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
+                
                 $contador_reportes = 0;
                 foreach ($kardexsprece as $kardexprece){
                    
@@ -214,12 +269,14 @@
                         <td><center><?=$estudiante['turno'];?></center></td>
                         <td><center><?=$estudiante['curso'];?></center></td>
                         <td><center><?=$estudiante['paralelo'];?></center></td>
-                        <td><center><?=$kardexprece['nombre_materia'];?></center></td>
-                        
+                                               
                         <td><center><?=$estudiante['apellidos']."  ".$estudiante['nombres'];?></center></td>
                         <td><center><?=$kardexprece['fecha'];?></center></td>
                         <td><center><?=$kardexprece['observacion'];?></center></td>
                         <td><center><?=$kardexprece['nota'];?></center></td>
+                        <td><center>
+                        <img src="<?=APP_URL."/public/images/kardexprece/".$kardexprece['documentoprece'];?>" width="100px" alt="">
+                        </center></td>
                     <?php
                         }
                      }
@@ -228,7 +285,8 @@
                       
 
 <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_editar<?=$id_kardexprece;?>"><i class="bi bi-pencil"></i></a> 
-                    
+
+
 
 <form action="<?=APP_URL;?>/app/controllers/kardexprece/delete.php" onclick="preguntar<?=$id_kardexprece;?>(event)" method="post" id="miFormulario<?=$id_kardexprece;?>">
 <input type="text" name="id_kardexprece" value="<?=$id_kardexprece;?>" hidden>
@@ -258,9 +316,10 @@
      });
     }
 </script> 
-                                 
+                      
+
                             
-                            <!-- Modal -->
+                            <!-- Modal Actualizar-->
 <div class="modal fade" id="modal_editar<?=$id_kardexprece;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -275,6 +334,8 @@
 
       <form action="<?=APP_URL;?>/app/controllers/kardexprece/update.php" method="post">
 
+
+      
     
         <div class="row"> 
         <div class="col-md-12">
@@ -323,11 +384,11 @@
             <select name="observacion" id="" class="form-control"> 
             <option value="DISCIPLINA" <?=$kardexprece['observacion']=="DISCIPLINA" ? 'selected' : ''?>>DISCIPLINA </option>
 
-            <option value="ASISTENCIA" <?=$kardexprece['observacion']=='ASISTENCIA'? 'selected': ''?>>ASISTENCIA</option>
-
+            <option value="ASISTENCIA"<?=$kardexprece['observacion']=="ASISTENCIA" ? 'selected' : ' '?>>ASISTENCIA </option>
             
             <option value="RENDIMIENTO ACADÉMICO"<?=$kardexprece['observacion']=="RENDIMIENTO ACADÉMICO" ? 'selected': ''?>>RENDIMIENTO ACADÉMICO</option>
-            <option value="OTROS">OTROS</option>
+            <option value="OTROS"<?=$kardexprece['observacion']=="OTROS" ? 'selected': ''?>>OTROS</option>
+            </div>
             </div>
         </div>
 
@@ -337,7 +398,7 @@
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
-            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardex['nota'];?> </textarea>
+            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardexprece['nota'];?> </textarea>
                       
             </div>
         </div>
@@ -348,6 +409,9 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-success">Actualizar</button>
       </div>
+
+
+      
             </form>
     </div>
   </div>
@@ -365,7 +429,12 @@
            </div> 
      </div>
   </div>
-  </div>
+ 
+
+
+
+
+
   </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

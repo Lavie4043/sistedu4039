@@ -13,7 +13,7 @@
     include('../app/controllers/docentes/listado_de_docentes.php');
     include('../app/controllers/estudiantes/listado_de_estudiantes.php');
     include('../app/controllers/personas/listado_de_personas.php');
-    include('../app/controllers/estudiantes/reporte_estudiantes_por_grado.php');
+    include('../app/controllers/estudiantes/reporte_estudiantes_por_grados.php');
     
     ?>
 
@@ -445,26 +445,50 @@ $nombre_rol = $dato['nombre_rol'];
 </div>
 
 <hr>
+
+
 <div class="row">
   <div class="col-md-6">
-    <div class="card card-outline card-primary">
-        <div class="card-header">   
-            <h3 class="card-title">Datos de los estudiantes</h3>
-        </div>
-        <div class="card-body">   
-        <div>
-          <canvas id="myChart"> </canvas>
-        </div>   
-      </div>
-    </div>
 
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Alumnos registrados</h3>
+          </div>  
+        <div class="card-body">
+          <div>  
+            <canvas id="myChart"> </canvas>
+          </div> 
+        </div>  
+    </div>
+    
+
+    <?php
+        $contador = 0;
+        $contador12 = 0;
+        
+        foreach($reportes_estudiantes as $reportes_estudiante){
+          if($reportes_estudiante['grado_id']=="1") $contador12 = $contador12 + 1;
+          if($reportes_estudiante['grado_id']=="2") $contador41 = $contador41 + 1;
+          if($reportes_estudiante['grado_id']=="6") $contador11 = $contador11 + 1;
+          if($reportes_estudiante['grado_id']=="8") $contador13 = $contador13 + 1;
+          
+          if($reportes_estudiante['grado_id']=="9") $contador14 = $contador14 + 1;
+          if($reportes_estudiante['grado_id']=="10") $contador24 = $contador24 + 1;
+          if($reportes_estudiante['grado_id']=="11") $contador22 = $contador22 + 1;
+          if($reportes_estudiante['grado_id']=="12") $contador23 = $contador23 + 1;
+
+        }
+        $datos_reporte_estudiantes = $contador11.",".$contador12.",".$contador13.",".$contador14.",".$contador22.",".$contador23.",".$contador24.",".$contador41;
+    ?>
+
+    
 <script>
-  var grados = ['1- 1', '1- 2', '1- 3', '1- 4'];
-  var datos = [30,45,32,45];
+  var grados = ['1- 1', '1- 2', '1- 3', '1-4', '4- 1'];
+  var datos = [<?=$datos_reporte_estudiantes;?>];
   const ctx = document.getElementById('myChart');
 
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
       labels: grados,
       datasets: [{

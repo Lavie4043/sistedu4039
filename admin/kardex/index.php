@@ -4,7 +4,6 @@
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
     include('../../layout/mensajes.php');
-    include('../../app/controllers/docentes/listado_de_docentes.php');
 
     include('../../app/controllers/docentes/listado_de_asignaciones.php');
     include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
@@ -64,7 +63,7 @@
                         <td><center><?=$asignacione['nombre_materia'];?></center></td>
                         <td><center>
                             <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacion;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
-                            <!-- Modal -->
+                            <!-- Modal CREATE-->
 <div class="modal fade" id="exampleModal<?=$id_asignacion;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -133,8 +132,10 @@
         <div class="form-group">
             <label for="" style="color: #eb2d14">Observacion</label>
             <select name="observacion" id="" class="form-control"> 
-            <option value="DISCIPLINA">DISCIPLINA </option>
-            <option value="ASISTENCIA ">ASISTENCIA </option>
+            
+            
+            <option value="DISCIPLINA">DISCIPLINA</option>
+            <option value="ASISTENCIA">ASISTENCIA</option>
             <option value="RENDIMIENTO ACADÉMICO">RENDIMIENTO ACADÉMICO</option>
             <option value="OTROS">OTROS</option>
             </div>
@@ -268,7 +269,7 @@
 </script> 
                                  
                             
-                            <!-- Modal -->
+                            <!-- Modal Actualizar-->
 <div class="modal fade" id="modal_editar<?=$id_kardex;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -339,13 +340,15 @@
         <div class="form-group">
             <label for="" style="color: #eb2d14">Observación</label>
             <select name="observacion" id="" class="form-control"> 
+            
+            
+            
             <option value="DISCIPLINA" <?=$kardex['observacion']=="DISCIPLINA" ? 'selected' : ''?>>DISCIPLINA </option>
 
-            <option value="ASISTENCIA" <?=$kardex['observacion']=='ASISTENCIA'? 'selected': ''?>>ASISTENCIA</option>
-
+            <option value="ASISTENCIA" <?=$kardex['observacion']=="ASISTENCIA" ? 'selected' : ' '?>>ASISTENCIA </option>
             
             <option value="RENDIMIENTO ACADÉMICO"<?=$kardex['observacion']=="RENDIMIENTO ACADÉMICO" ? 'selected': ''?>>RENDIMIENTO ACADÉMICO</option>
-            <option value="OTROS">OTROS</option>
+            <option value="OTROS"<?=$kardex['observacion']=="OTROS" ? 'selected': ''?>>OTROS</option>
             </div>
         </div>
 
