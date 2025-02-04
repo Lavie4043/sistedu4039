@@ -121,7 +121,27 @@ $id_estudiante = $_GET['id'];
                         </div>
                         </div>
 
-                        <div class="col-md-8">
+                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">departamento<b></b></label>
+                                <p><?=$departamento;?> </p>
+                                
+                            </div>
+                        </div>
+                    
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="">localidad<b></b></label>
+                                <p><?=$localidad;?> </p>
+                                
+                            </div>
+                        </div>
+                    
+
+                        <div class="col-md-4">
                         <div class="form-group">
 
                             <label for="">Fecha y hora de registro</label>
@@ -130,7 +150,7 @@ $id_estudiante = $_GET['id'];
                         </div>
                         </div>
 
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                         <div class="form-group">
 
                             <label for="">Estado</label>

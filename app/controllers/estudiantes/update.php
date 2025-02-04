@@ -91,7 +91,9 @@ $sentencia = $pdo->prepare('UPDATE estudiantes
         SET nivel_id=:nivel_id, 
             grado_id=:grado_id, 
             rude=:rude, 
-            fyh_actualizacion=:fyh_actualizacion
+            fyh_actualizacion=:fyh_actualizacion,
+            departamento=:departamento,
+            localidad=:localidad
 
         WHERE id_estudiante=:id_estudiante');
 
@@ -100,7 +102,8 @@ $sentencia->bindParam(':nivel_id',$nivel_id);
 $sentencia->bindParam(':grado_id',$grado_id);
 $sentencia->bindParam(':rude',$rude);
 $sentencia->bindParam(':fyh_actualizacion',$fechaHora);
-
+$sentencia->bindParam(':departamento',$departamento);
+$sentencia->bindParam(':localidad',$localidad);
 
 
 $sentencia->execute();

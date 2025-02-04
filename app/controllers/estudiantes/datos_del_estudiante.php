@@ -13,7 +13,7 @@ WHERE est.estado = '1' AND est.id_estudiante = '$id_estudiante'";
 
 $query_estudiantes = $pdo->prepare($sql_estudiantes);
 $query_estudiantes->execute();
-$estudiantes = $query_estudiantes->fetchAll(fetch_style: PDO::FETCH_ASSOC);
+$estudiantes = $query_estudiantes->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($estudiantes as $estudiante){
 
@@ -46,6 +46,8 @@ $paralelo = $estudiante['paralelo'];
 
 
 $rude = $estudiante['rude'];
+$departamento = $estudiante['departamento'];
+$localidad = $estudiante['localidad'];
 
 $nombres_apellidos_ppff = $estudiante['nombres_apellidos_ppff'];
 $ci_ppff = $estudiante['ci_ppff'];

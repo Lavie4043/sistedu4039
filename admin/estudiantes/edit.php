@@ -138,7 +138,55 @@ $id_estudiante = $_GET['id'];
                         </div>
                         </div>
                         </div>
+                        
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Departamento<b></b></label>
+                            <select name= "departamento" id="" class=form-control>
+                              <option value="CAPITAL"<?=$departamento=='CAPITAL' ? 'selected' : ''?>>CAPITAL</option>
+                              <option value="GODOY CRUZ"<?=$departamento=='GODOY CRUZ' ? 'selected' : ''?>>GODOY CRUZ</option>
+                              <option value="GUAYMALLEN"<?=$departamento=='GUAYMALLEN' ? 'selected' : ''?>>GUAYMALLEN</option>
+                              <option value="LAS HERAS"<?=$departamento=='LAS HERAS' ? 'selected' : ''?>>LAS HERAS</option>
+                              <option value="LUJAN DE CUYO"<?=$departamento=='LUJAN DE CUYO' ? 'selected' : ''?>>LUJAN DE CUYO</option>
+                              <option value="MAIPU"<?=$departamento=='MAIPU' ? 'selected' : ''?>>MAIPU</option>
 
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="">Localidad<b></b></label>
+                            <select name= "localidad" id="" class=form-control>
+                              <option value="CIUDAD MAIPU"<?=$localidad=='CIUDAD MAIPU' ? 'selected' : ''?>>CIUDAD MAIPU</option>
+                              <option value="COQUIMBITO"<?=$localidad=='COQUIMBITO' ? 'selected' : ''?>>COQUIMBITO</option>
+                              <option value="CRUZ DE PIEDRA"<?=$localidad=='CRUZ DE PIEDRA' ? 'selected' : ''?>>CRUZ DE PIEDRA</option>
+                              <option value="FRAY LUIS BELTRAN"<?=$localidad=='FRAY LUIS BELTRAN' ? 'selected' : ''?>>FRAY LUIS BELTRAN</option>
+                              <option value="GRAL ORTEGA"<?=$localidad=='GRAL ORTEGA' ? 'selected' : ''?>>GRAL ORTEGA</option>
+                              <option value="GUTIERREZ"<?=$localidad=='GUTIERREZ' ? 'selected' : ''?>>GUTIERREZ</option>
+                              <option value="LAS BARRANCAS"<?=$localidad=='LAS BARRANCAS' ? 'selected' : ''?>>LAS BARRANCAS</option>
+                              <option value="LULUNTA"<?=$localidad=='LULUNTA' ? 'selected' : ''?>>LULUNTA</option>
+                              <option value="LUZURIAGA"<?=$localidad=='LUZURIAGA' ? 'selected' : ''?>>LUZURIAGA</option>
+                              <option value="RODEO DEL MEDIO"<?=$localidad=='RODEO DEL MEDIO' ? 'selected' : ''?>>RODEO DEL MEDIO</option>
+                              <option value="RUSSEL"<?=$localidad=='RUSSEL' ? 'selected' : ''?>>RUSSEL</option>
+                              <option value="SAN ROQUE"<?=$localidad=='SAN ROQUE' ? 'selected' : ''?>>SAN ROQUE</option>
+                              <option value="CUIDAD MENDOZA"<?=$localidad=='CIUDAD MENDOZA' ? 'selected' : ''?>>CIUDAD MENDOZA</option>
+                              <option value="GODOY CRUZ"<?=$localidad=='GODOY CRUZ' ? 'selected' : ''?>>GODOY CRUZ</option>
+                              <option value="GUAYMALLEN"<?=$localidad=='GUAYMALLEN' ? 'selected' : ''?>>GUAYMALLEN</option>
+                              <option value="LAS HERAS"<?=$localidad=='LAS HERAS' ? 'selected' : ''?>>LAS HERAS</option>
+                              <option value="LUJAN DE CUYO"<?=$localidad=='LUJAN DE CUYO' ? 'selected' : ''?>>LUJAN DE CUYO</option>
+                              
+                              
+                              
+                              
+                              
+
+
+                            </select>
+                        </div>
+                    </div>
+
+
+                </div>
                         </div>
                         </div>
                         </div>

@@ -16,6 +16,8 @@ $email = $_POST['email'];
 $nivel_id = $_POST['nivel_id'];
 $grado_id = $_POST['grado_id'];
 $rude = $_POST['rude'];
+$departamento = $_POST['departamento'];
+$localidad = $_POST['localidad'];
 
 $nombres_apellidos_ppff = $_POST['nombres_apellidos_ppff'];
 $ci_ppff = $_POST['ci_ppff'];
@@ -72,15 +74,21 @@ $id_persona = $pdo->lastInsertId();
 ///// INSERTAR A LA TABLA ESTUDIANTES
 
 $sentencia = $pdo->prepare('INSERT INTO estudiantes
-        (persona_id, nivel_id, grado_id, rude, fyh_creacion, estado)
-VALUES (:persona_id, :nivel_id, :grado_id, :rude, :fyh_creacion, :estado)');
+        (persona_id, nivel_id, grado_id, rude, fyh_creacion, estado, departamento, localidad)
+VALUES (:persona_id, :nivel_id, :grado_id, :rude, :fyh_creacion, :estado,       :departamento, :localidad)');
 
 $sentencia->bindParam(':persona_id',$id_persona);
 $sentencia->bindParam(':nivel_id',$nivel_id);
 $sentencia->bindParam(':grado_id',$grado_id);
 $sentencia->bindParam(':rude',$rude);
+
 $sentencia->bindParam('fyh_creacion',$fechaHora);
 $sentencia->bindParam('estado',$estado_de_registro);
+$sentencia->bindParam(':departamento',$departamento);
+$sentencia->bindParam(':localidad',$localidad);
+
+
+
 
 $sentencia->execute();
 

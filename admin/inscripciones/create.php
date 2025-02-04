@@ -128,6 +128,52 @@
                         <div class="col-md-4">
                         <div class="form-group">
 
+                            <label for="">departamento</label>
+                            <select name= "departamento" id="" class=form-control>
+                                  <option value="CAPITAL">CAPITAL</option>
+                                  <option value="GODOY CRUZ">GODOY CRUZ</option>
+                                  <option value="GUAYMALLEN">GUAYMALLEN</option>
+                                  <option value="LAS HERAS">LAS HERAS</option>
+                                  <option value="LUJAN DE CUYO">LUJAN DE CUYO</option>
+                                  <option value="MAIPU">MAIPU</option>
+                                  
+
+                                </select>
+
+                        </div>
+                        </div>
+                        <div class="col-md-4">
+                        <div class="form-group">
+
+                            <label for="">localidad</label>
+                            <select name= "localidad" id="" class=form-control>
+                                  <option value="CIUDAD MAIPU">CIUDAD MAIPU</option>
+                                  <option value="COQUIMBITO">COQUIMBITO</option>
+                                  <option value="CRUZ DE PIEDRA">CRUZ DE PIEDRA</option>
+                                  <option value="FRAY LUIS BELTRAN">FRAY LUIS BELTRAN</option>
+                                  <option value="GRAL ORTEGA">GRAL ORTEGA</option>
+                                  <option value="GUTIERREZ">GUTIERREZ</option>
+                                  <option value="LAS BARRANCAS">LAS BARRANCAS</option>
+                                  <option value="LUNLUNTA">LUNLUNTA</option>
+                                  <option value="LUZURIAGA">LUZURIAGA</option>
+                                  <option value="RODEO DEL MEDIO">RODEO DEL MEDIO</option>
+                                  <option value="RUSSEL">RUSSEL</option>
+                                  <option value="SAN ROQUE">SAN ROQUE</option>
+                                  <option value="CIUDAD MENDOZA">CIUDAD MENDOZA</option>
+                                  <option value="GODOY CRUZ">GODOY CRUZ</option>
+                                  <option value="GUAYMALLEN">GUAYMALLEN</option>
+                                  <option value="LAS HERAS">LAS HERAS</option>
+                                  <option value="LUJAN DE CUYO">LUJAN DE CUYO</option>
+                                  
+
+                                </select>
+
+                        </div>
+                        </div>
+
+                        <div class="col-md-8">
+                        <div class="form-group">
+
                             <label for="">correo</label>
                             <input type="email" name="email" class="form-control" >
 
