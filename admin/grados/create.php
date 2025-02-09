@@ -57,15 +57,7 @@
                             <div class="form-group">
                                 <label for="">Curso<b></b></label>
                                 <select name= "curso" id="" class=form-control>
-                                  <option value="INICIAL MATERNAL">INICIAL MATERNAL</option>
-                                  <option value="INICIAL JARDÍN DE INFANTES">INICIAL JARDÍN DE INFANTES</option>
-                                  <option value="PRIMARIA PRIMERO">PRIMARIA PRIMERO</option>
-                                  <option value="PRIMARIA SEGUNDO">PRIMARIA SEGUNDO</option>
-                                  <option value="PRIMARIA TERCERO">PRIMARIA TERCERO</option>
-                                  <option value="PRIMARIA CUARTO">PRIMARIA CUARTO</option>
-                                  <option value="PRIMARIA QUINTO">PRIMARIA QUINTO</option>
-                                  <option value="PRIMARIA SEXTO">PRIMARIA SEXTO</option>
-                                  <option value="PRIMARIA SÉPTIMO">PRIMARIA SÉPTIMO</option>
+                                  
                                   <option value="SECUNDARIA PRIMERO">SECUNDARIA PRIMERO</option>
                                   <option value="SECUNDARIA SEGUNDO">SECUNDARIA SEGUNDO</option>
                                   <option value="SECUNDARIA TERCERO">SECUNDARIA TERCERO</option>

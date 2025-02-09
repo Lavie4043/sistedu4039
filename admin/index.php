@@ -507,7 +507,63 @@ $nombre_rol = $dato['nombre_rol'];
   });
 </script>
  
+<div class="card card-outline card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Alumnos por localidades</h3>
+          </div>  
+        <div class="card-body">
+          <div>  
+            <canvas id="myChart"> </canvas>
+          </div> 
+        </div>  
+    </div>
+    
 
+    <?php
+        $contador = 0;
+        $contador12 = 0;
+        
+        foreach($reportes_estudiantes as $reportes_estudiante){
+          if($reportes_estudiante['grado_id']=="1") $contador12 = $contador12 + 1;
+          if($reportes_estudiante['grado_id']=="2") $contador41 = $contador41 + 1;
+          if($reportes_estudiante['grado_id']=="6") $contador11 = $contador11 + 1;
+          if($reportes_estudiante['grado_id']=="8") $contador13 = $contador13 + 1;
+          
+          if($reportes_estudiante['grado_id']=="9") $contador14 = $contador14 + 1;
+          if($reportes_estudiante['grado_id']=="10") $contador24 = $contador24 + 1;
+          if($reportes_estudiante['grado_id']=="11") $contador22 = $contador22 + 1;
+          if($reportes_estudiante['grado_id']=="12") $contador23 = $contador23 + 1;
+
+        }
+        $datos_reporte_estudiantes = $contador11.",".$contador12.",".$contador13.",".$contador14.",".$contador22.",".$contador23.",".$contador24.",".$contador41;
+    ?>
+
+    
+<script>
+  var grados = ['1- 1', '1- 2', '1- 3', '1-4', '4- 1'];
+  var datos = [<?=$datos_reporte_estudiantes;?>];
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: grados,
+      datasets: [{
+        label: 'Estudiantes por grados',
+        data: datos,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+ 
 
   
   </div>

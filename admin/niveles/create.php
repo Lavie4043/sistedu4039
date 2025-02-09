@@ -57,8 +57,7 @@
                             <div class="form-group">
                                 <label for="">Niveles<b>*</b></label>
                                 <select name= "nivel" id="" class=form-control>
-                                  <option value="INICIAL">INICIAL</option>
-                                  <option value="PRIMARIA">PRIMARIA</option>
+                                  
                                   <option value="SECUNDARIA">SECUNDARIA</option>
 
                                 </select>
@@ -73,7 +72,7 @@
                                 <select name= "turno" id="" class=form-control>
                                   <option value="MAÑANA">MAÑANA</option>
                                   <option value="TARDE">TARDE</option>
-                                  <option value="NOCHE">NOCHE</option>
+                                  
 
                                 </select>
                             </div>
