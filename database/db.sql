@@ -337,15 +337,15 @@ CREATE TABLE kardexsprece (
      
 )ENGINE=InnoDB;
 
-CREATE TABLE kardexsalumno (
+CREATE TABLE kardexsestudiante (
 
-    id_kardexalumno            INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_kardexestudiante            INT   (11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
     preceptore_id           INT   (11) NOT NULL,
     estudiante_id        INT   (11) NOT NULL,
     fecha                VARCHAR (50) NOT NULL,
     observacion          VARCHAR (255) NOT NULL,
     nota                 TEXT     NOT NULL,
-    documentoalumno       VARCHAR (255) NULL,
+    documentoestudiante       VARCHAR (255) NULL,
     
   
       

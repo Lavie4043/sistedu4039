@@ -7,7 +7,8 @@ INNER JOIN niveles as niv ON niv.id_nivel = asi.nivel_id
 INNER JOIN grados as gra On gra.id_grado = asi.grado_id 
 INNER JOIN materias as mat On mat.id_materia = asi.materia_id 
 
-WHERE asi.estado = '1' ";
+WHERE asi.estado = '1'  ";
+
 
 $query_asignaciones = $pdo->prepare($sql_asignaciones);
 $query_asignaciones->execute();

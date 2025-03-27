@@ -1,5 +1,5 @@
 <?php
-
+-
     include('../../app/config.php');
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
@@ -358,7 +358,7 @@
                 <?php
                 foreach ($docentes as $docente){
                   $id_docente = $docente['id_docente']; ?>
-                    <option value="<?=$id_docente;?>"><?=$docente['apellidos']." ".$docente['nombres'];?></option>
+                    <option value="<?=$id_docente;?>"><?=$docente['apellidos']." ".$docente['nombres'];?>  </option>
                 <?php
                 }
                 ?>

@@ -9,7 +9,7 @@ INNER JOIN ppffs as ppf On ppf.estudiante_id = est.id_estudiante
 
 WHERE est.estado = '1' AND est.id_estudiante = '$id_estudiante'";
 
-//, est.nivel_id as nivel_id
+
 
 $query_estudiantes = $pdo->prepare($sql_estudiantes);
 $query_estudiantes->execute();

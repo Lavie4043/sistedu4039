@@ -22,6 +22,9 @@ $email = $_POST['email'];
 $nivel_id = $_POST['nivel_id'];
 $grado_id = $_POST['grado_id'];
 $rude = $_POST['rude'];
+$departamento = $_POST['departamento'];
+$localidad = $_POST['localidad'];
+
 
 $nombres_apellidos_ppff = $_POST['nombres_apellidos_ppff'];
 $ci_ppff = $_POST['ci_ppff'];
@@ -94,7 +97,6 @@ $sentencia = $pdo->prepare('UPDATE estudiantes
             fyh_actualizacion=:fyh_actualizacion,
             departamento=:departamento,
             localidad=:localidad
-
         WHERE id_estudiante=:id_estudiante');
 
 $sentencia->bindParam(':id_estudiante',$id_estudiante);
@@ -104,6 +106,7 @@ $sentencia->bindParam(':rude',$rude);
 $sentencia->bindParam(':fyh_actualizacion',$fechaHora);
 $sentencia->bindParam(':departamento',$departamento);
 $sentencia->bindParam(':localidad',$localidad);
+
 
 
 $sentencia->execute();

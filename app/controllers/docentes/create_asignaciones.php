@@ -1,5 +1,5 @@
 <?php
-include('../../../app/config.php');
+include ('../../../app/config.php');
 
 $id_docente = $_POST['id_docente'];
 $id_nivel = $_POST['id_nivel'];

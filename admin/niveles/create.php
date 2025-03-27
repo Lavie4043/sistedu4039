@@ -70,6 +70,7 @@
                             <div class="form-group">
                                 <label for="">Turnos<b></b></label>
                                 <select name= "turno" id="" class=form-control>
+                                <option value="NOCHE">NOCHE</option>
                                   <option value="MAÑANA">MAÑANA</option>
                                   <option value="TARDE">TARDE</option>
                                   

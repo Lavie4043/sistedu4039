@@ -8,7 +8,7 @@
 
     include('../../app/controllers/preceptores/listado_de_asignaciones.php');
     include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
-    include('../../app/controllers/kardexprece/listado_de_kardexs.php');
+    include('../../app/controllers/kardexprece/listado_de_kardexsprece.php');
   
     ?>
 

@@ -78,8 +78,9 @@
                 <div class="btn-group" usuario="group" aria-label="Basic example">
                     <a href="show.php?id=<?=$id_nivel;?>" type="button" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
                     <a href="edit.php?id=<?=$id_nivel;?>" type="button" class="btn btn-success btn-sm"><i class="bi bi-pencil"></i></a>
-                    
+     
     <form action="<?=APP_URL;?>/app/controllers/niveles/delete.php" onclick="preguntar<?=$id_nivel;?>(event)" method="post" id="miFormulario<?=$id_nivel;?>">
+    
     <input type="text" name="id_nivel" value="<?=$id_nivel;?>" hidden>
     <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
 

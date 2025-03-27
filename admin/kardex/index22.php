@@ -63,7 +63,7 @@
                         <td><center><?=$asignacione['nombre_materia'];?></center></td>
                         <td><center>
                             <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacion;?>"><i class="bi bi-check2-square"></i> Reportar</a> 
-                            <!-- Modal -->
+                            <!-- Modal CREATE-->
 <div class="modal fade" id="exampleModal<?=$id_asignacion;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -130,17 +130,18 @@
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
-            <label for="" style="color: #eb2d14">Observación</label>
+            <label for="" style="color: #eb2d14">Observacion</label>
             <select name="observacion" id="" class="form-control"> 
-            <option value="DISCIPLINA">DISCIPLINA </option>
-            <option value="ASISTENCIA ">ASISTENCIA </option>
+            
+            
+            <option value="DISCIPLINA">DISCIPLINA</option>
+            <option value="ASISTENCIA">ASISTENCIA</option>
             <option value="RENDIMIENTO ACADÉMICO">RENDIMIENTO ACADÉMICO</option>
             <option value="OTROS">OTROS</option>
-            </div>
         </div>
-
         </div>
-
+        </div>
+        
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
@@ -150,8 +151,11 @@
             </div>
         </div>
         </div>
+        </div>
 
-      </div>
+        
+
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-danger">Registrar</button>
@@ -195,7 +199,7 @@
                     <th><center>Materia</center></th>
                     <th><center>Estudiante</center></th>
                     <th><center>Fecha de reporte</center></th>
-                    <th><center>Observación</center></th>
+                    <th><center>Observacion</center></th>
                     <th><center>Nota</center></th>
                     <th><center>Acciones</center></th>
                 </tr>
@@ -204,10 +208,14 @@
                 <?php
                 $contador_reportes = 0;
                 foreach ($kardexs as $kardex){
-                    $id_kardex = $kardex['id_kardex'];
+                   
                     if($email_sesion == $kardex['email']){ 
-                        $estudiante_id = $kardex['estudiante_id'];                       
-                        $contador_reportes = $contador_reportes + 1; ?>
+                    $id_kardex = $kardex['id_kardex'];
+                    
+                    $estudiante_id = $kardex['estudiante_id'];   
+                    $grado_id = $kardex['grado_id'];    
+
+                    $contador_reportes = $contador_reportes + 1; ?>
                     <tr>
                      <?php
                      foreach($estudiantes as $estudiante){
@@ -228,17 +236,46 @@
                      }
                      ?>  
                      <td> 
-                      <center>
+                      
 
-<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal<?=$id_asignacion;?>"><i class="bi bi-pencil"></i>Modificar</a> 
-                    </center>
+<a class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal_editar<?=$id_kardex;?>"><i class="bi bi-pencil"></i></a> 
+                    
+
+<form action="<?=APP_URL;?>/app/controllers/kardex/delete.php" onclick="preguntar<?=$id_kardex;?>(event)" method="post" id="miFormulario<?=$id_kardex;?>">
+<input type="text" name="id_kardex" value="<?=$id_kardex;?>" hidden>
+<button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+
+                        
+
+                  </form>
+                    <script>
+    function preguntar<?=$id_kardex;?>(event) {
+      event.preventDefault();
+      Swal.fire({
+        title: 'Eliminar registro',
+        text: '¿Desea eliminar este registro',
+        icon: 'question',
+        showDenyButton: true,
+        confirmButtonText: 'Eliminar',
+        confirmButtonColor: '#a5161d',
+        denyButtonColor: '#3B033B', 
+        denyButtonText: 'Cancelar', 
+
+     }).then ((result) => {
+      if (result.isConfirmed) {
+        var form = $('#miFormulario<?=$id_kardex;?>');
+        form.submit();
+      }
+     });
+    }
+</script> 
                                  
                             
-                            <!-- Modal -->
-<div class="modal fade" id="exampleModal<?=$id_asignacion;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <!-- Modal Actualizar-->
+<div class="modal fade" id="modal_editar<?=$id_kardex;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" style="background-color: #eb2d14">
+      <div class="modal-header" style="background-color: #008f39">
         <h5 class="modal-title" id="exampleModalLabel style=color: white">
           Editar reporte</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -247,15 +284,16 @@
       </div>
       <div class="modal-body">
 
-      <form action="<?=APP_URL;?>/app/controllers/kardex/create.php" method="post">
+      <form action="<?=APP_URL;?>/app/controllers/kardex/update.php" method="post">
 
     
         <div class="row"> 
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Fecha</label>
+            <input type="text" value="<?=$id_kardex;?>" name="id_kardex" hidden> </input>
             <input type="text" name="docente_id" value="<?=$docente_id;?>" hidden> </input>
-            <input type="date" name="fecha" class="form-control" > </input>
+            <input type="date" value= "<?=$kardex['fecha'];?>"name="fecha" class="form-control" > </input>
 
            
             
@@ -271,9 +309,9 @@
             <select name="estudiante_id" id="" class="form-control"> 
               <?php
               foreach ($estudiantes as $estudiante){
-                if($estudiante['id_grado']==$asignacione['grado_id']){
+                if($estudiante['id_grado']==$grado_id){
                   $id_estudiante = $estudiante['id_estudiante'];?>
-                 <option value="<?=$id_estudiante;?>"><?=$estudiante['apellidos']." ".$estudiante['nombres'];?> </option>
+                 <option value="<?=$id_estudiante;?>" <?=$id_estudiante==$estudiante_id ? 'selected': ''?>><?=$estudiante['apellidos']." ".$estudiante['nombres'];?> </option>
                  <?php
 
                 }
@@ -291,8 +329,8 @@
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">Materia</label>
-            <input type="text" class="form-control" value="<?=$asignacione['nombre_materia'];?>" disabled> </input>
-            <input type="text" class="form-control" name="materia_id" value="<?=$asignacione['id_materia'];?>" hidden> </input>
+            <input type="text" class="form-control" value="<?=$kardex['nombre_materia'];?>" disabled> </input>
+            <input type="text" class="form-control" name="materia_id" value="<?=$kardex['id_materia'];?>" hidden> </input>
             
             </div>
         </div>
@@ -304,10 +342,15 @@
         <div class="form-group">
             <label for="" style="color: #eb2d14">Observación</label>
             <select name="observacion" id="" class="form-control"> 
-            <option value="DISCIPLINA">DISCIPLINA </option>
-            <option value="ASISTENCIA ">ASISTENCIA </option>
-            <option value="RENDIMIENTO ACADÉMICO">RENDIMIENTO ACADÉMICO</option>
-            <option value="OTROS">OTROS</option>
+            
+            
+            
+            <option value="DISCIPLINA" <?=$kardex['observacion']=="DISCIPLINA" ? 'selected' : ''?>>DISCIPLINA </option>
+
+            <option value="ASISTENCIA" <?=$kardex['observacion']=="ASISTENCIA" ? 'selected' : ' '?>>ASISTENCIA </option>
+            
+            <option value="RENDIMIENTO ACADÉMICO"<?=$kardex['observacion']=="RENDIMIENTO ACADÉMICO" ? 'selected': ''?>>RENDIMIENTO ACADÉMICO</option>
+            <option value="OTROS"<?=$kardex['observacion']=="OTROS" ? 'selected': ''?>>OTROS</option>
             </div>
         </div>
 
@@ -317,7 +360,7 @@
         <div class="col-md-12">
         <div class="form-group">
             <label for="" style="color: #eb2d14">NOTA</label>
-            <textarea name="nota" id="" cols="30" class="form-control" rows="5"> </textarea>
+            <textarea name="nota" id="" cols="30" class="form-control" rows="5"><?=$kardex['nota'];?> </textarea>
                       
             </div>
         </div>
@@ -326,7 +369,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-danger">Registrar</button>
+        <button type="submit" class="btn btn-success">Actualizar</button>
       </div>
             </form>
     </div>

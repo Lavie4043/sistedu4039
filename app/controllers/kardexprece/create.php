@@ -8,6 +8,8 @@ $estudiante_id = $_POST['estudiante_id'];
 
 $observacion = $_POST['observacion'];
 
+
+
 $nota = $_POST['nota'];
 
 
@@ -28,20 +30,25 @@ if($_FILES['file']['name'] !=null){
 
 
 $sentencia = $pdo->prepare('INSERT INTO kardexsprece 
-        (preceptore_id, estudiante_id, fecha, observacion, nota, documentoprece, fyh_creacion, estado)
-VALUES  ( :preceptore_id, :estudiante_id, :fecha, :observacion, :nota, :documentoprece, :fyh_creacion, :estado)');
+        (preceptore_id, estudiante_id, fecha, observacion, documentoprece, nota, fyh_creacion, estado)
+VALUES  ( :preceptore_id, :estudiante_id, :fecha, :observacion, :documentoprece, :nota,  :fyh_creacion, :estado)');
 
 
 $sentencia->bindParam(':preceptore_id',$preceptore_id);
 $sentencia->bindParam(':estudiante_id',$estudiante_id);
 $sentencia->bindParam(':fecha',$fecha);
 $sentencia->bindParam(':observacion',$observacion);
-$sentencia->bindParam(':nota',$nota);
 $sentencia->bindParam(':documentoprece',$documentoprece);
+$sentencia->bindParam(':nota',$nota);
 
-
+$sentencia->bindParam(':documentoprece',$documentoprece);
+$sentencia->bindParam(':nota',$nota);
 $sentencia->bindParam(':fyh_creacion',$fechaHora);
 $sentencia->bindParam(':estado',$estado_de_registro);
+
+
+
+
 
 if($sentencia->execute()){
     session_start();

@@ -15,7 +15,7 @@
     <div class="content">
       <div class="container">
         <div class="row">
-          <h1>Vista sola</h1>
+          <h1>Proyectos</h1>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->

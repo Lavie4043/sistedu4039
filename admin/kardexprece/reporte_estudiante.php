@@ -3,7 +3,7 @@
     include('../../app/config.php');
     include('../../admin/layout/parte1.php');
     include('../../admin/layout/parte2.php');
-    include('../../app/controllers/kardexprece/listado_de_kardexs.php');
+    include('../../app/controllers/kardexprece/listado_de_kardexsprece.php');
 
     $id_estudiante = $_GET['id_estudiante'];
 
@@ -38,24 +38,25 @@
                                            
                 <tr>    
                     <th><center>N°</center></th>
-                    <th><center>Materia</center></th>
                     <th><center>Fecha de reporte</center></th>
                     <th><center>Observacion</center></th>
                     <th><center>Nota</center></th>
+                    <th><center>Documento</center></th>
                    
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $contador_reportes = 0;
-                foreach ($kardexs as $kardex){
+                foreach ($kardexsprece as $kardexprece){
                    
-                    if($id_estudiante == $kardex['estudiante_id']){ 
-                    $id_kardex = $kardex['id_kardex'];
-                    $nombre_materia = $kardex['nombre_materia'];   
-                    $fecha = $kardex['fecha']; 
-                    $observacion = $kardex['observacion']; 
-                    $nota = $kardex['nota'];  
+                    if($id_estudiante == $kardexprece['estudiante_id']){ 
+                    $id_kardexprece = $kardexprece['id_kardexprece'];
+                      
+                    $fecha = $kardexprece['fecha']; 
+                    $observacion = $kardexprece['observacion']; 
+                    $nota = $kardexprece['nota'];
+                    $documentoprece = $kardexprece['documentoprece'];  
                      
 
                     $contador_reportes = $contador_reportes + 1; ?>
@@ -65,10 +66,12 @@
                     <tr>
 
                     <td><center><?=$contador_reportes;?></td></center>
-                    <td><center><?=$nombre_materia;?></td></center>
+                    
                     <td><center><?=$fecha;?></td></center>
                     <td><center><?=$observacion;?></td></center>
                     <td><?=$nota;?></td>
+                    <td><?=$documentoprece;?></td>
+
                   
 
                     <?php
@@ -79,12 +82,13 @@
                         <td><center><?=$estudiante['turno'];?></center></td>
                         <td><center><?=$estudiante['curso'];?></center></td>
                         <td><center><?=$estudiante['paralelo'];?></center></td>
-                        <td><center><?=$kardex['nombre_materia'];?></center></td>
+                        
                         
                         <td><center><?=$estudiante['apellidos']."  ".$estudiante['nombres'];?></center></td>
-                        <td><center><?=$kardex['fecha'];?></center></td>
-                        <td><center><?=$kardex['observacion'];?></center></td>
-                        <td><center><?=$kardex['nota'];?></center></td>
+                        <td><center><?=$kardexprece['fecha'];?></center></td>
+                        <td><center><?=$kardexprece['observacion'];?></center></td>
+                        <td><center><?=$kardexprece['nota'];?></center></td>
+                        <td><center><?=$kardexprece['documentoprece'];?></center></td>
                     <?php
                         }
                      }
@@ -154,7 +158,7 @@
             },
                 {
                     extend: 'colvis',
-                    text: 'Visor de columnas',
+                    text: 'Visor de  columnas',
                     collectionLayout: 'fixed three-column'
                 }
             ],

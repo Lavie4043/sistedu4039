@@ -14,7 +14,7 @@
     include('../app/controllers/estudiantes/listado_de_estudiantes.php');
     include('../app/controllers/personas/listado_de_personas.php');
     include('../app/controllers/estudiantes/reporte_estudiantes_por_grados.php');
-    
+    include('../app/controllers/estudiantes/reporte_estudiantes_por_localidades.php');
     ?>
 
 
@@ -96,20 +96,39 @@
       <hr>
       
 
-        <div class="row">
-          <br> <br>          
-          <div class="col-md-4 col-sm-6 col-12">
+        
+          <br> <br>     
+          <div class="row"></div>     
+          <div class="col-md-6 col-sm-6 col-12">
             <div class="info-box">
                 <span class="info-box-icon bg-primary"> <i class="bi bi-exclamation-diamond"></i></span>
                 <div class= "info-box-content">
-                <span class="info-box-text"><b>Notificaciones</b></span>
+                <span class="info-box-text"><b>Notificaciones Docentes</b></span>
                 <a href="<?=APP_URL;?>/admin/kardex/reporte_estudiante.php?id_estudiante=<?=$id_estudiante;?>" class= "btn btn-primary">Ingresar</a>
 
 
   </div>
-        </div><!-- /.container-fluid -->
-    </div>
+  </div>
+  </div>
     
+  
+  
+
+  <div class="row">
+          <div class="col-md-6 col-sm-6 col-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-primary"> <i class="bi bi-exclamation-diamond"></i></span>
+                <div class= "info-box-content">
+                <span class="info-box-text"><b>Notificaciones Preceptor</b></span>
+                <a href="<?=APP_URL;?>/admin/kardexprece/reporte_estudiante.php?id_estudiante=<?=$id_estudiante;?>" class= "btn btn-primary">Ingresar</a>
+
+
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-4 col-sm-6 col-12">
             <div class="info-box">
                 <span class="info-box-icon bg-info"> <i class="bi bi-check2-square"></i></span>
@@ -118,8 +137,12 @@
                 <a href="<?=APP_URL;?>/admin/calificaciones/reporte_estudiante.php?id_estudiante=<?=$id_estudiante;?>" class= "btn btn-primary">Ingresar</a>
 
   </div>
-        </div><!-- /.container-fluid -->
-    </div>
+  </div>
+  </div>
+  </div>
+
+  </div><!-- /.container-fluid -->
+    
     
     
     <!-- /.content -->
@@ -464,26 +487,26 @@ $nombre_rol = $dato['nombre_rol'];
 
     <?php
         $contador = 0;
+        $contador11 = 0;
         $contador12 = 0;
+        $contador14 = 0;
+        $contador13 = 0;
         
         foreach($reportes_estudiantes as $reportes_estudiante){
-          if($reportes_estudiante['grado_id']=="1") $contador12 = $contador12 + 1;
-          if($reportes_estudiante['grado_id']=="2") $contador41 = $contador41 + 1;
-          if($reportes_estudiante['grado_id']=="6") $contador11 = $contador11 + 1;
-          if($reportes_estudiante['grado_id']=="8") $contador13 = $contador13 + 1;
+          if($reportes_estudiante['grado_id']=="28") $contador11 = $contador11 + 1;
+          if($reportes_estudiante['grado_id']=="2") $contador12 = $contador12 + 1;
+         
+          if($reportes_estudiante['grado_id']=="6") $contador14 = $contador14 + 1;
+          if($reportes_estudiante['grado_id']=="22") $contador13 = $contador13 + 1;
           
-          if($reportes_estudiante['grado_id']=="9") $contador14 = $contador14 + 1;
-          if($reportes_estudiante['grado_id']=="10") $contador24 = $contador24 + 1;
-          if($reportes_estudiante['grado_id']=="11") $contador22 = $contador22 + 1;
-          if($reportes_estudiante['grado_id']=="12") $contador23 = $contador23 + 1;
 
         }
-        $datos_reporte_estudiantes = $contador11.",".$contador12.",".$contador13.",".$contador14.",".$contador22.",".$contador23.",".$contador24.",".$contador41;
+        $datos_reporte_estudiantes = $contador11.",".$contador12.",".$contador13.",".$contador14;
     ?>
 
     
 <script>
-  var grados = ['1- 1', '1- 2', '1- 3', '1-4', '4- 1'];
+  var grados = ['1- 1', '1- 2', '1- 3', '1-4'];
   var datos = [<?=$datos_reporte_estudiantes;?>];
   const ctx = document.getElementById('myChart');
 
@@ -506,14 +529,16 @@ $nombre_rol = $dato['nombre_rol'];
     }
   });
 </script>
- 
+
+<!-- /.SEGUNDO GRÁFICO -->
+
 <div class="card card-outline card-primary">
         <div class="card-header">
           <h3 class="card-title">Alumnos por localidades</h3>
           </div>  
         <div class="card-body">
           <div>  
-            <canvas id="myChart"> </canvas>
+            <canvas id="myChart2"> </canvas>
           </div> 
         </div>  
     </div>
@@ -521,35 +546,48 @@ $nombre_rol = $dato['nombre_rol'];
 
     <?php
         $contador = 0;
-        $contador12 = 0;
+        $contadorciudadmaipu = 0;
+        $contadorcoquimbito = 0;
+        $contadorcruzdepiedra = 0;
+        $contadorfrayluisbeltran = 0;
+        $contadorgralortega = 0;
+        $contadorgutierrez = 0;
+        $contadorlasbarrancas = 0;
+        $contadorlunlunta = 0;
+        $contadorluzuriaga = 0;
+        $contadorrodeodelmedio = 0;
+        $contadorrussel = 0;
+        $contadorsanroque = 0;
+        $contadorciudadmendoza = 0;
+        $contadorgodoycruz = 0;
+        $contadorguaymallen = 0;
+        $contadorlasheras = 0;
+        $contadorlujandecuyo = 0;
         
-        foreach($reportes_estudiantes as $reportes_estudiante){
-          if($reportes_estudiante['grado_id']=="1") $contador12 = $contador12 + 1;
-          if($reportes_estudiante['grado_id']=="2") $contador41 = $contador41 + 1;
-          if($reportes_estudiante['grado_id']=="6") $contador11 = $contador11 + 1;
-          if($reportes_estudiante['grado_id']=="8") $contador13 = $contador13 + 1;
+        foreach($reportes_localidades as $reportes_localidade){
+          if($reportes_localidade['estudiante_id']=="Cruz de Piedra") $contadorcruzdepiedra = $contadorcruzdepiedra + 1;
+          if($reportes_localidade['estudiante_id']=="Barrancas") $contadorbarrancas = $contadorbarrancas + 1;
+          if($reportes_localidade['estudiante_id']=="Ciudad Maipu") $contadorciudadmaipu = $contadorciudadmaipu + 1;
+          if($reportes_localidade['estudiante_id']=="Gutierrez") $contadorgutierrez = $contadorgutierrez + 1;
           
-          if($reportes_estudiante['grado_id']=="9") $contador14 = $contador14 + 1;
-          if($reportes_estudiante['grado_id']=="10") $contador24 = $contador24 + 1;
-          if($reportes_estudiante['grado_id']=="11") $contador22 = $contador22 + 1;
-          if($reportes_estudiante['grado_id']=="12") $contador23 = $contador23 + 1;
+          
 
         }
-        $datos_reporte_estudiantes = $contador11.",".$contador12.",".$contador13.",".$contador14.",".$contador22.",".$contador23.",".$contador24.",".$contador41;
+        $datos_reporte_localidade = $contadorbarrancas.",".$contadorciudadmaipu.",".$contadorgutierrez;
     ?>
 
     
 <script>
-  var grados = ['1- 1', '1- 2', '1- 3', '1-4', '4- 1'];
-  var datos = [<?=$datos_reporte_estudiantes;?>];
-  const ctx = document.getElementById('myChart');
+  var grados = ['1- 1', '1- 2', '1- 3', '1-4'];
+  var datos = [<?=$datos_reporte_localidades;?>];
+  const ctx2 = document.getElementById('myChart2');
 
-  new Chart(ctx, {
+  new Chart(ctx2, {
     type: 'bar',
     data: {
       labels: grados,
       datasets: [{
-        label: 'Estudiantes por grados',
+        label: 'Estudiantes por localidades',
         data: datos,
         borderWidth: 1
       }]
