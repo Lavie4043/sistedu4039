@@ -3,9 +3,15 @@
 define('SERVIDOR','localhost');
 define('USUARIO','root');
 define('PASSWORD','');
+<<<<<<< HEAD
 define('BD','esc4039');
 define('APP_NAME','SISTEMA DE GESTION ESCOLAR 4039');
 define('APP_URL','http://localhost/educativo4039');
+=======
+define('BD','educativo4039');
+define('APP_NAME','SISTEMA DE GESTION ESCOLAR 4039');
+define('APP_URL','http://localhost/sistemaeducativo4039');
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
 define('KEY_API_MAPS','');
 
 $servidor = "mysql:dbname=".BD.";host=".SERVIDOR;

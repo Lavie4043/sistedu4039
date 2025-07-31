@@ -12,12 +12,18 @@
     include('../app/controllers/administrativos/listado_de_administrativos.php');
     include('../app/controllers/docentes/listado_de_docentes.php');
     include('../app/controllers/estudiantes/listado_de_estudiantes.php');
+<<<<<<< HEAD
     include('../app/controllers/estudiantes/listado_de_estudiantes.php');
     
     include('../app/controllers/calificaciones/listado_de_calificaciones.php');
     
     include('../app/controllers/estudiantes/reporte_estudiantes_por_grados.php');
     
+=======
+    include('../app/controllers/personas/listado_de_personas.php');
+    include('../app/controllers/estudiantes/reporte_estudiantes_por_grados.php');
+    include('../app/controllers/estudiantes/reporte_estudiantes_por_localidades.php');
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
     ?>
 
 
@@ -474,7 +480,11 @@ $nombre_rol = $dato['nombre_rol'];
 
 
 <div class="row">
+<<<<<<< HEAD
   <div class="col-md-8">
+=======
+  <div class="col-md-6">
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
 
     <div class="card card-outline card-primary">
         <div class="card-header">
@@ -535,16 +545,21 @@ $nombre_rol = $dato['nombre_rol'];
 
 <!-- /.SEGUNDO GRÁFICO -->
 
+<<<<<<< HEAD
 
 
 <div class="row">
   <div class="col-md-12">
     <div class="card card-outline card-primary">
+=======
+<div class="card card-outline card-primary">
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
         <div class="card-header">
           <h3 class="card-title">Alumnos por localidades</h3>
           </div>  
         <div class="card-body">
           <div>  
+<<<<<<< HEAD
     <!-- Gráfico por grados -->
     <canvas id="myChart"></canvas>
   </div>
@@ -578,29 +593,87 @@ $datos_localidades = json_encode(array_values($estudiantes_por_localidad));
   const ctx2 = document.getElementById('localidadesChart');
   const localidades = <?=$labels_localidades?>;
   const datosLocalidades = <?=$datos_localidades?>;
+=======
+            <canvas id="myChart2"> </canvas>
+          </div> 
+        </div>  
+    </div>
+    
+
+    <?php
+        $contador = 0;
+        $contadorciudadmaipu = 0;
+        $contadorcoquimbito = 0;
+        $contadorcruzdepiedra = 0;
+        $contadorfrayluisbeltran = 0;
+        $contadorgralortega = 0;
+        $contadorgutierrez = 0;
+        $contadorlasbarrancas = 0;
+        $contadorlunlunta = 0;
+        $contadorluzuriaga = 0;
+        $contadorrodeodelmedio = 0;
+        $contadorrussel = 0;
+        $contadorsanroque = 0;
+        $contadorciudadmendoza = 0;
+        $contadorgodoycruz = 0;
+        $contadorguaymallen = 0;
+        $contadorlasheras = 0;
+        $contadorlujandecuyo = 0;
+        
+        foreach($reportes_localidades as $reportes_localidade){
+          if($reportes_localidade['estudiante_id']=="Cruz de Piedra") $contadorcruzdepiedra = $contadorcruzdepiedra + 1;
+          if($reportes_localidade['estudiante_id']=="Barrancas") $contadorbarrancas = $contadorbarrancas + 1;
+          if($reportes_localidade['estudiante_id']=="Ciudad Maipu") $contadorciudadmaipu = $contadorciudadmaipu + 1;
+          if($reportes_localidade['estudiante_id']=="Gutierrez") $contadorgutierrez = $contadorgutierrez + 1;
+          
+          
+
+        }
+        $datos_reporte_localidade = $contadorbarrancas.",".$contadorciudadmaipu.",".$contadorgutierrez;
+    ?>
+
+    
+<script>
+  var grados = ['1- 1', '1- 2', '1- 3', '1-4'];
+  var datos = [<?=$datos_reporte_localidades;?>];
+  const ctx2 = document.getElementById('myChart2');
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
 
   new Chart(ctx2, {
     type: 'bar',
     data: {
+<<<<<<< HEAD
       labels: localidades,
       datasets: [{
         label: 'Estudiantes por Localidad',
         data: datosLocalidades,
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
         borderColor: 'rgba(75, 192, 192, 1)',
+=======
+      labels: grados,
+      datasets: [{
+        label: 'Estudiantes por localidades',
+        data: datos,
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
         borderWidth: 1
       }]
     },
     options: {
+<<<<<<< HEAD
       indexAxis: 'y',
       scales: {
         x: {
+=======
+      scales: {
+        y: {
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
           beginAtZero: true
         }
       }
     }
   });
 </script>
+<<<<<<< HEAD
         
 
     <!-- Gráfico por promedios localidad -->
@@ -671,6 +744,22 @@ $datos_notas = json_encode(array_values($promedios_finales));
   });
 </script>
         </div>
+=======
+ 
+
+  
+  </div>
+
+</div>
+
+
+
+        <?php
+        }
+        ?>
+
+      
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
 
        
         
@@ -683,8 +772,11 @@ $datos_notas = json_encode(array_values($promedios_finales));
   <!-- /.content-wrapper -->
 
 
+<<<<<<< HEAD
 <?php
         }else{
           echo "<div class='alert alert-danger'>No tienes permiso para ver esta sección</div>";
         }
       ?>
+=======
+>>>>>>> b293d0af06a5c19534cfa1d275279fd522e5cdb8
