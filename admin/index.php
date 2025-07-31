@@ -654,7 +654,7 @@ $datos_notas = json_encode(array_values($promedios_finales));
         datasets: [{
           label: 'Promedio nota1 por Localidad',
           data: notas,
-          backgroundColor: 'rgba(255, 159, 64, 0.6)',
+          backgroundColor: 'rgba(153, 64, 255, 0.6)',
           borderColor: 'rgba(255, 159, 64, 1)',
           borderWidth: 1
         }]
