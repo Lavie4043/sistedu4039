@@ -115,8 +115,8 @@
                 <div class="col-md-12">
                 <div class="form-group">
                     
-                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> 
-                    <input type="text" name="id_pago" value="<?=$id_pago;?>"hidden> </input>
+                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>" hidden> 
+                    <input type="text" name="id_pago" value="<?=$id_pago;?>" hidden> 
                     <label for="">Estudiante</label>
                     <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> 
 
@@ -211,73 +211,91 @@
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header" style= "background-color:#0aa8ba">
+      <div class="modal-header" style="background-color:#0aa8ba">
         <h5 class="modal-title" id="exampleModalLabel"><b>Registrar pago</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form action="<?=APP_URL;?>/app/controllers/pagos/create.php" method="post">
-            <div class="row">
-                <div class="col-md-12">
-                <div class="form-group">
-                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> 
-                    <label for="">Estudiante</label>
-                    <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> 
+        <form action="<?=APP_URL;?>/app/controllers/pagos/create.php" method="post">
+          <div class="row">
 
-                    <div class="col-md-12">
-                <div class="form-group">
-                    <label for="">DNI</label>
-                    <input type="text" class="form-control" value="<?=$ci;?>" disabled> 
-
-                    <div class="col-md-12">
-                    <div class="form-group">
-                    <label for="">Mes pagado</label>
-                    <select name="mes_pagado" id="" class="form-control" >
-                        <option value="ENERO">ENERO</option>
-                        <option value="FEBRERO">FEBRERO</option>
-                        <option value="MARZO">MARZO</option>
-                        <option value="ABRIL">ABRIL</option>
-                        <option value="MAYO">MAYO</option>
-                        <option value="JUNIO">JUNIO</option>
-                        <option value="JULIO">JULIO</option>
-                        <option value="AGOSTO">AGOSTO</option>
-                        <option value="SEPTIEMBRE">SEPTIEMBRE</option>
-                        <option value="OCTUBRE">OCTUBRE</option>
-                        <option value="NOVIEMBRE">NOVIEMBRE</option>
-                        <option value="DICIEMBRE">DICIEMBRE</option>
-
-
-                    </select>
-
-                    <div class="col-md-12">
-                    <div class="form-group">
-                    <label for="">Monto pagado</label>
-                    <input type="text" name="monto_pagado" class="form-control" value="0"
-
-                    <div class="col-md-12">
-                    <div class="form-group">
-                    <label for="">Fecha de pago</label>
-                    <input type="date" name="fecha_pagado" class="form-control"
-                    
-            </div>
-            </div>
+            <!-- Estudiante -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>" hidden>
+                <label for="">Estudiante</label>
+                <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled>
+              </div>
             </div>
 
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Registrar</button>
-      </div>
-      <script>
-  document.querySelector('form').addEventListener('submit', function() {
+            <!-- DNI -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">DNI</label>
+                <input type="text" class="form-control" value="<?=$ci;?>" disabled />
+              </div>
+            </div>
+
+            <!-- Mes pagado -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Mes pagado</label>
+                <select name="mes_pagado" class="form-control">
+                  <option value="ENERO">ENERO</option>
+                  <option value="FEBRERO">FEBRERO</option>
+                  <option value="MARZO">MARZO</option>
+                  <option value="ABRIL">ABRIL</option>
+                  <option value="MAYO">MAYO</option>
+                  <option value="JUNIO">JUNIO</option>
+                  <option value="JULIO">JULIO</option>
+                  <option value="AGOSTO">AGOSTO</option>
+                  <option value="SEPTIEMBRE">SEPTIEMBRE</option>
+                  <option value="OCTUBRE">OCTUBRE</option>
+                  <option value="NOVIEMBRE">NOVIEMBRE</option>
+                  <option value="DICIEMBRE">DICIEMBRE</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Monto pagado -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Monto pagado</label>
+                <input type="text" name="monto_pagado" class="form-control" value="0">
+              </div>
+            </div>
+
+            <!-- Fecha de pago -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="">Fecha de pago</label>
+                <input type="date" name="fecha_pagado" class="form-control">
+              </div>
+            </div>
+
+          </div> <!-- end row -->
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+          </div>
+
+
+          
+          
+        </form>
+        <script>
+  document.querySelector('#exampleModal form').addEventListener('submit', function () {
     $('#exampleModal').modal('hide');
+    setTimeout(function () {
+      location.reload(); // recarga después de enviar
+    }, 500); // breve espera para asegurar cierre del modal
   });
 </script>
-      </form>
-      
+
+      </div>
     </div>
   </div>
-</div>  
+</div>
