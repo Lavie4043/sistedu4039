@@ -115,15 +115,15 @@
                 <div class="col-md-12">
                 <div class="form-group">
                     
-                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> </input>
+                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> 
                     <input type="text" name="id_pago" value="<?=$id_pago;?>"hidden> </input>
                     <label for="">Estudiante</label>
-                    <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> </input>
+                    <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> 
 
                     <div class="col-md-12">
                 <div class="form-group">
                     <label for="">DNI</label>
-                    <input type="text" class="form-control" value="<?=$ci;?>" disabled> </input>
+                    <input type="text" class="form-control" value="<?=$ci;?>" disabled> 
 
                     <div class="col-md-12">
                     <div class="form-group">
@@ -148,12 +148,12 @@
                     <div class="col-md-12">
                     <div class="form-group">
                     <label for="">Monto pagado</label>
-                    <input type="text" name="monto_pagado" class="form-control" value="<?=$pago['monto_pagado'];?>"</input>
+                    <input type="text" name="monto_pagado" class="form-control" value="<?=$pago['monto_pagado'];?>"
 
                     <div class="col-md-12">
                     <div class="form-group">
                     <label for="">Fecha de pago</label>
-                    <input type="date" name="fecha_pagado" value="<?=$pago['fecha_pagado'];?>" class="form-control"</input>
+                    <input type="date" name="fecha_pagado" value="<?=$pago['fecha_pagado'];?>" class="form-control"
                     
             </div>
             </div>
@@ -222,14 +222,14 @@
             <div class="row">
                 <div class="col-md-12">
                 <div class="form-group">
-                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> </input>
+                    <input type="text" name="estudiante_id" value="<?=$id_estudiante;?>"hidden> 
                     <label for="">Estudiante</label>
-                    <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> </input>
+                    <input type="text" class="form-control" value="<?=$apellidos." ".$nombres;?>" disabled> 
 
                     <div class="col-md-12">
                 <div class="form-group">
                     <label for="">DNI</label>
-                    <input type="text" class="form-control" value="<?=$ci;?>" disabled> </input>
+                    <input type="text" class="form-control" value="<?=$ci;?>" disabled> 
 
                     <div class="col-md-12">
                     <div class="form-group">
@@ -254,12 +254,12 @@
                     <div class="col-md-12">
                     <div class="form-group">
                     <label for="">Monto pagado</label>
-                    <input type="text" name="monto_pagado" class="form-control" value="0"</input>
+                    <input type="text" name="monto_pagado" class="form-control" value="0"
 
                     <div class="col-md-12">
                     <div class="form-group">
                     <label for="">Fecha de pago</label>
-                    <input type="date" name="fecha_pagado" class="form-control"</input>
+                    <input type="date" name="fecha_pagado" class="form-control"
                     
             </div>
             </div>
@@ -271,7 +271,11 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary">Registrar</button>
       </div>
-      
+      <script>
+  document.querySelector('form').addEventListener('submit', function() {
+    $('#exampleModal').modal('hide');
+  });
+</script>
       </form>
       
     </div>

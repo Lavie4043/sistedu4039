@@ -7,7 +7,7 @@
 
     include('../../app/controllers/docentes/listado_de_asignaciones.php');
     include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
-    include('../../app/controllers/kardex/listado_de_kardexs.php');
+    include('../../app/controllers/kardex/listado_de_kardexsprece.php');
   
     ?>
 
