@@ -44,5 +44,24 @@
 
 <!-- AdminLTE App -->
 <script src="<?php echo APP_URL;?>/public/dist/js/adminlte.min.js"></script>
+<script>
+  $(document).ready(function() {
+    function inicializarTabla(idTabla) {
+      if ($.fn.DataTable.isDataTable(idTabla)) {
+        $(idTabla).DataTable().clear().destroy();
+      }
+      $(idTabla).DataTable({
+        responsive: true,
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+        }
+      });
+    }
+
+    inicializarTabla('#example1');
+    inicializarTabla('#examplePrestamos');
+  });
+</script>
+<script src="<?= APP_URL ?>/public/js/datatables-init.js"></script>
 </body>
 </html>

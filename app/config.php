@@ -1,33 +1,32 @@
 <?php
-
-define('SERVIDOR','localhost');
-define('USUARIO','root');
-define('PASSWORD','');
-
-define('BD','esc4039');
-define('APP_NAME','SISTEMA DE GESTION ESCOLAR 4039');
-define('APP_URL','http://localhost/educativo4039');
-
-
-define('KEY_API_MAPS','');
-
-$servidor = "mysql:dbname=".BD.";host=".SERVIDOR;
-
-try{
-    $pdo = new PDO ($servidor,USUARIO,PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES utf8")); 
-    //echo "conexion exitosa a la base de datos";
-}catch (PDOException $e){
-    echo "error no se pudo conectar a la base de datos";
+// En config.php o antes del include de parte1.php
+if (!defined('APP_NAME')) {
+    define('APP_NAME', 'Sistema Educativo 4039');
 }
 
-date_default_timezone_set("America/Argentina/Mendoza");
-date_default_timezone_get();
+if (!defined('APP_URL')) {
+    define('APP_URL', 'http://localhost/educativo4039/');
+}
 
 
-$fechaHora= date('Y-m-d H:i:s');
-$fecha_actual= date('Y-m-d');
-$dia_actual= date('d');
-$mes_actual= date('m');
-$anio_actual= date('Y');
-$estado_de_registro = '1';
+// Parámetros de conexión
+$servidor = "mysql:host=localhost;dbname=esc4039";
+$usuario = "root";
+$password = "";
 
+try {
+    // Crear conexión PDO
+    $pdo = new PDO($servidor, $usuario, $password, array(
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+    ));
+
+    // Opcional: activar modo de errores
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Prueba básica
+    $stmt = $pdo->query("SELECT 1");
+    //echo "✅ Conexión y consulta básica OK";
+} catch (PDOException $e) {
+    //echo "❌ Error en conexión: " . $e->getMessage();
+    exit();
+}

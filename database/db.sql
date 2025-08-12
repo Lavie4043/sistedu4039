@@ -388,3 +388,28 @@ CREATE TABLE roles_permisos (
 FOREIGN KEY (rol_id) REFERENCES roles (id_rol) on delete no action on update cascade, 
  FOREIGN KEY (permiso_id) REFERENCES permisos (id_permiso) on delete no action on update cascade
 )ENGINE=InnoDB;
+
+CREATE TABLE bibliotecas (
+    id_biblioteca INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    persona_id INT(11) NOT NULL,
+    grado_id INT(11),
+    materia_id INT(11),
+
+    nombre_autor VARCHAR(255),
+    titulo VARCHAR(255),
+    editorial VARCHAR(255),
+    libro_inventario VARCHAR(255),
+
+    nombre_herramienta VARCHAR(255),
+    herramienta_inventario VARCHAR(255),
+    estado_entrega ENUM('pendiente', 'entregada') DEFAULT 'pendiente',
+    fecha_prestamo DATETIME,
+    fecha_devolucion DATETIME,   
+    tipo_recurso ENUM('libro', 'herramienta') NOT NULL,
+    fyh_creacion DATETIME NULL,
+    fyh_actualizacion DATETIME NULL,
+
+    FOREIGN KEY (persona_id) REFERENCES personas(id_persona) ON DELETE NO ACTION ON UPDATE CASCADE,
+    FOREIGN KEY (grado_id) REFERENCES grados(id_grado) ON DELETE NO ACTION ON UPDATE CASCADE,
+    FOREIGN KEY (materia_id) REFERENCES materias(id_materia) ON DELETE NO ACTION ON UPDATE CASCADE
+) ENGINE=InnoDB;

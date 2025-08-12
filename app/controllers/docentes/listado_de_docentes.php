@@ -1,11 +1,14 @@
 <?php
-$sql_docentes = "SELECT * FROM usuarios as usu 
-INNER JOIN roles as rol ON rol.id_rol = usu.rol_id 
-INNER JOIN personas as per ON per.usuario_id = usu.id_usuario 
-INNER JOIN docentes as doc On doc.persona_id = per.id_persona WHERE doc.estado = '1' ";
+include($_SERVER['DOCUMENT_ROOT'] . '/educativo4039/app/config.php');
 
-$query_docentes = $pdo->prepare($sql_docentes);
-$query_docentes->execute();
-$docentes = $query_docentes->fetchAll(PDO::FETCH_ASSOC);
+if (!isset($pdo)) {
+    //echo "❌ La conexión \$pdo no está disponible.";
+    exit();
+}
 
-
+try {
+    $stmt = $pdo->query("SELECT 1");
+    //echo "✅ Conexión y consulta básica OK";
+} catch (PDOException $e) {
+    //echo "❌ Error en consulta: " . $e->getMessage();
+}
