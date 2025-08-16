@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /educativo4039/
+
+# Excluir archivos reales (js, css, png, etc.)
+RewriteCond %{REQUEST_URI} !\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot|map)$ [NC]
+
+# Excluir carpetas reales
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirigir todo lo demás al index
+RewriteRule ^(.*)$ index.php [QSA,L]
