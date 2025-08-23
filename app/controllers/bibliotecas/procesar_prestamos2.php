@@ -11,7 +11,9 @@ $tipo_prestamo = $_POST['tipo_prestamo'];
 
 $tipo_recurso = $_POST['tipo_recurso'];
 $fecha_prestamo = $_POST['fecha_prestamo'];
-$fecha_devolucion = $_POST['fecha_devolucion'] ?? null; // Puede ser nulo si es diario
+
+// Estado inicial del préstamo: pendiente por defecto
+$estado_entrega = 'pendiente';
 
 
 
@@ -47,7 +49,7 @@ try {
             ':titulo' => $titulo,
             ':editorial' => $editorial,
             ':libro_inventario' => $libro_inventario,
-            ':estado_entrega' => 'pendiente',
+            ':estado_entrega' => $estado_entrega,
             ':fecha_prestamo' => $fecha_prestamo,
             ':fecha_devolucion' => $fecha_devolucion,
             ':tipo_recurso' => $tipo_recurso,
@@ -65,17 +67,18 @@ try {
         $nombre_herramienta = $_POST['nombre_herramienta'];
         $cantidad_herramienta = $_POST['cantidad_herramientas'];
         $herramienta_inventario = $_POST['herramienta_inventario'];
-        $tipo_prestamo = $_POST['tipo_prestamo'];
-        $fyh_creacion = date('Y-m-d H:i:s');
 
         $sql = "INSERT INTO bibliotecas (
-    persona_id, grado_id, materia_id,
-    nombre_herramienta, cantidad_herramientas, herramienta_inventario,
-   estado_entrega, fecha_prestamo, fecha_devolucion, tipo_recurso,  fyh_creacion, tipo_prestamo
-) VALUES (
-    :persona_id, :grado_id, :materia_id,
-    :nombre_herramienta, :cantidad_herramientas, :herramienta_inventario,:estado_entrega, :fecha_prestamo, :fecha_devolucion, :tipo_recurso,  :fyh_creacion, :tipo_prestamo
-)";
+            persona_id, grado_id, materia_id,
+            nombre_herramienta, cantidad_herramientas, herramienta_inventario,
+            fecha_prestamo, fecha_devolucion, tipo_recurso, estado_entrega, tipo_prestamo, fyh_creacion
+        ) VALUES (
+            :persona_id, :grado_id, :materia_id,
+            :nombre_herramienta, :cantidad_herramientas, :herramienta_inventario,
+            :fecha_prestamo, :fecha_devolucion, :tipo_recurso, :estado_entrega, :tipo_prestamo, :fyh_creacion
+        )";
+
+        $fyh_creacion = date('Y-m-d H:i:s');
 
         $stmt = $pdo->prepare($sql);
         if (!$stmt->execute([
@@ -85,13 +88,12 @@ try {
             ':nombre_herramienta' => $nombre_herramienta,
             ':cantidad_herramientas' => $cantidad_herramienta,
             ':herramienta_inventario' => $herramienta_inventario,
-            ':estado_entrega' => 'pendiente',
             ':fecha_prestamo' => $fecha_prestamo,
             ':fecha_devolucion' => $fecha_devolucion,
             ':tipo_recurso' => $tipo_recurso,
-            
-            ':fyh_creacion' => $fyh_creacion,
-            ':tipo_prestamo' => $tipo_prestamo
+            ':estado_entrega' => 'pendiente',
+            ':tipo_prestamo' => $tipo_prestamo,
+            ':fyh_creacion' => $fyh_creacion
         ])) {
             throw new PDOException("Error al registrar herramienta");
         }

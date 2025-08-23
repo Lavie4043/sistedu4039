@@ -3,6 +3,7 @@ function obtenerTodosLosPrestamos($pdo) {
     $sql = "SELECT 
         b.id_biblioteca,
         b.tipo_recurso,
+        b.tipo_prestamo,
         b.estado_entrega,
         b.fecha_prestamo,
         b.fecha_devolucion,

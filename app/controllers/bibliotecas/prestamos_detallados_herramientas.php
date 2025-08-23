@@ -1,12 +1,10 @@
 <?php
-
-
 function obtenerPrestamosHerramientas($pdo) {
     $sql = "SELECT 
         b.id_biblioteca,
         b.tipo_recurso,
-        b.estado_entrega,
         b.fecha_prestamo,
+         b.estado_entrega,
         b.fecha_devolucion,
         b.nombre_herramienta,
         b.cantidad_herramientas,
@@ -22,8 +20,9 @@ function obtenerPrestamosHerramientas($pdo) {
     JOIN grados AS g ON g.id_grado = b.grado_id
     JOIN materias AS m ON m.id_materia = b.materia_id
     WHERE b.estado_entrega IS NOT NULL
-      AND b.tipo_recurso = 'herramienta'
     ORDER BY b.fecha_prestamo DESC";
+
+  
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute();

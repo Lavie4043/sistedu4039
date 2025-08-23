@@ -59,16 +59,6 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
 
 ?>
 
-<div class="content-wrapper">
-    <br>
-   <!-- Main content -->
-    <div class="content">
-      <div class="container">
-
-      <div class="row">
-          <h1>PRESTAMOS</h1>
-        </div>
-
 
 
 
@@ -76,18 +66,17 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
 <div class="row mb-4">
   <div class="col-md-12">
     <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-  <h3 class="card-title">Préstamos Registrados</h3>
-  <div class="card-tools"></div>
-</div>
- <div class="card-body d-flex justify-content-center">
+      <div class="card-header">
+        <h3 class="card-title">Préstamos Registrados</h3>
+        <div class="card-tools"></div>
+      </div>
 <?php if (empty($prestamosLibros)): ?>
   <p class="text-center text-warning">⚠️ No hay préstamos de libros registrados.</p>
 <?php else: ?>
-  <p class="text-center text-success">✅ </p>
+  <p class="text-center text-success">✅ Se encontraron <?= count($prestamosLibros) ?> préstamos de libros.</p>
 <?php endif; ?>
 
-     
+      <div class="card-body d-flex justify-content-center">
         
         <div class="table-responsive" style="max-width: 1000px; width: 100%; margin: auto;">
           <table id="examplePrestamos" class="table table-hover table-dark table-bordered table-sm text-center datatable">
@@ -190,7 +179,8 @@ usort($prestamosLibros, function ($a, $b) {
   });
 </script>
 
-
+</body>
+</html>
         </div>
       </div>
     </div>
@@ -273,16 +263,6 @@ usort($prestamosLibros, function ($a, $b) {
   <p class="text-center text-success">✅ Se encontraron <?= count($prestamosHerramientas) ?> préstamos de herramientas.</p>
 <?php endif; ?>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="card card-outline card-primary">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title">Préstamos</h3>
-        <div class="card-tools"></div> <!-- puede estar vacío -->
-      </div> <!-- cierre de card-header -->
-
-      
-
 
 <div class="row mb-4">
   <div class="col-md-12">
@@ -306,7 +286,6 @@ usort($prestamosLibros, function ($a, $b) {
       <th>Cantidad</th>
       <th>Inventario</th>
       <th>Fecha Préstamo</th>
-      <th>Tipo de presta,o</th>
       <th>Estado de entrega</th>
     </tr>
   </thead>
@@ -315,13 +294,14 @@ usort($prestamosHerramientas, function ($a, $b) {
   $estadoA = strtolower(trim($a['estado_entrega'] ?? ''));
   $estadoB = strtolower(trim($b['estado_entrega'] ?? ''));
 
+  // Pendientes primero
   if ($estadoA === 'pendiente' && $estadoB !== 'pendiente') return -1;
   if ($estadoA !== 'pendiente' && $estadoB === 'pendiente') return 1;
 
-  // Si ambos tienen el mismo estado, ordenar por ID descendente
-  $idA = intval($a['id_biblioteca'] ?? 0);
-  $idB = intval($b['id_biblioteca'] ?? 0);
-  return $idB <=> $idA;
+  // Si ambos tienen el mismo estado, ordenar por fecha de préstamo
+  $fechaA = strtotime($a['fecha_prestamo'] ?? '');
+  $fechaB = strtotime($b['fecha_prestamo'] ?? '');
+  return $fechaA <=> $fechaB;
 });
 ?>
   <tbody>
@@ -338,18 +318,6 @@ usort($prestamosHerramientas, function ($a, $b) {
       <td><?= $item['fecha_prestamo'] ?></td>
       <td>
   <?php
-    $tipo = strtolower(trim($item['tipo_prestamo'] ?? ''));
-    if ($tipo === 'casa') {
-      echo '<span class="badge bg-primary">Casa</span>';
-    } elseif ($tipo === 'diario') {
-      echo '<span class="badge bg-warning text-dark">Diario</span>';
-    } else {
-      echo '<span class="badge bg-secondary">Otro</span>';
-    }
-  ?>
-</td>
-      <td>
-  <?php
     $estado = strtolower(trim($item['estado_entrega'] ?? ''));
     if ($estado === 'pendiente') {
       echo '<span style="color:white;">🔴 Pendiente</span><br>';
@@ -361,7 +329,6 @@ usort($prestamosHerramientas, function ($a, $b) {
     }
   ?>
 </td>
-
     </tr>
     <?php endforeach; ?>
   </tbody>
@@ -613,10 +580,7 @@ $(document).ready(function () {
   
 </tbody>
   </table>
-  </div>  
-  
-
-
+  </div>   
 
   <!-- hasta aca borre -->
   <script>
@@ -692,7 +656,15 @@ function toggleCampos(tipo, personaId) {
 
     });
 </script>
-            
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+  div:nth-child(odd) { outline: 2px dashed blue; }
+  div:nth-child(even) { outline: 2px dashed green; }
+</style>
+    </div>
 
 <!-- Otros scripts -->
 
@@ -708,7 +680,17 @@ function toggleCampos(tipo, personaId) {
 
 <?php include('../../admin/layout/parte2.php'); ?>
 <?php include('../../layout/mensajes.php'); ?>
+<!-- TEST: ¿Se cierra todo? -->
+ <hr style="border: 1px dashed blue;">
+<div style="border: 2px dashed red; padding: 10px;">Fin del layout</div>
+<style>
+  .fin-layout {
+    border: 3px dashed red;
+    padding: 10px;
+    background-color: #fff0f0;
+  }
+</style>
 
-
-
-
+<div class="fin-layout">Fin del layout</div>
+</body>
+</html>

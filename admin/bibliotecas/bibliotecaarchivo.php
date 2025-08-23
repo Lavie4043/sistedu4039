@@ -59,16 +59,6 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
 
 ?>
 
-<div class="content-wrapper">
-    <br>
-   <!-- Main content -->
-    <div class="content">
-      <div class="container">
-
-      <div class="row">
-          <h1>PRESTAMOS</h1>
-        </div>
-
 
 
 
@@ -76,18 +66,17 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
 <div class="row mb-4">
   <div class="col-md-12">
     <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-  <h3 class="card-title">Préstamos Registrados</h3>
-  <div class="card-tools"></div>
-</div>
- <div class="card-body d-flex justify-content-center">
+      <div class="card-header">
+        <h3 class="card-title">Préstamos Registrados</h3>
+        <div class="card-tools"></div>
+      </div>
 <?php if (empty($prestamosLibros)): ?>
   <p class="text-center text-warning">⚠️ No hay préstamos de libros registrados.</p>
 <?php else: ?>
-  <p class="text-center text-success">✅ </p>
+  <p class="text-center text-success">✅ Se encontraron <?= count($prestamosLibros) ?> préstamos de libros.</p>
 <?php endif; ?>
 
-     
+      <div class="card-body d-flex justify-content-center">
         
         <div class="table-responsive" style="max-width: 1000px; width: 100%; margin: auto;">
           <table id="examplePrestamos" class="table table-hover table-dark table-bordered table-sm text-center datatable">
@@ -150,7 +139,7 @@ usort($prestamosLibros, function ($a, $b) {
       echo '<span style="color:white;">🔴 Pendiente</span><br>';
       echo '<button class="btn btn-sm btn-success marcar-entregado" data-id="' . htmlspecialchars($item['id_biblioteca']) . '">Marcar como entregado</button>';
     } elseif (strpos($estado, 'entreg') !== false) {
-      echo '<span style="color:white;">🟢 Entregado</span>';
+      echo '<span style="color:green;">🟢 Entregado</span>';
     } else {
       echo '<span class="text-muted">Sin estado</span>';
     }
@@ -180,7 +169,7 @@ usort($prestamosLibros, function ($a, $b) {
         .then(response => response.text())
         .then(data => {
           if (data === 'ok') {
-            td.innerHTML = '<span style="color:white;">🟢 Entregado</span>';
+            td.innerHTML = '<span style="color:green;">🟢 Entregado</span>';
           } else {
             alert('❌ Error al actualizar el estado');
           }
@@ -190,7 +179,8 @@ usort($prestamosLibros, function ($a, $b) {
   });
 </script>
 
-
+</body>
+</html>
         </div>
       </div>
     </div>
@@ -273,16 +263,6 @@ usort($prestamosLibros, function ($a, $b) {
   <p class="text-center text-success">✅ Se encontraron <?= count($prestamosHerramientas) ?> préstamos de herramientas.</p>
 <?php endif; ?>
 
-<div class="row">
-  <div class="col-md-12">
-    <div class="card card-outline card-primary">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h3 class="card-title">Préstamos</h3>
-        <div class="card-tools"></div> <!-- puede estar vacío -->
-      </div> <!-- cierre de card-header -->
-
-      
-
 
 <div class="row mb-4">
   <div class="col-md-12">
@@ -306,24 +286,9 @@ usort($prestamosLibros, function ($a, $b) {
       <th>Cantidad</th>
       <th>Inventario</th>
       <th>Fecha Préstamo</th>
-      <th>Tipo de presta,o</th>
       <th>Estado de entrega</th>
     </tr>
   </thead>
-  <?php
-usort($prestamosHerramientas, function ($a, $b) {
-  $estadoA = strtolower(trim($a['estado_entrega'] ?? ''));
-  $estadoB = strtolower(trim($b['estado_entrega'] ?? ''));
-
-  if ($estadoA === 'pendiente' && $estadoB !== 'pendiente') return -1;
-  if ($estadoA !== 'pendiente' && $estadoB === 'pendiente') return 1;
-
-  // Si ambos tienen el mismo estado, ordenar por ID descendente
-  $idA = intval($a['id_biblioteca'] ?? 0);
-  $idB = intval($b['id_biblioteca'] ?? 0);
-  return $idB <=> $idA;
-});
-?>
   <tbody>
     <?php foreach ($prestamosHerramientas as $index => $item): ?>
     <tr>
@@ -338,61 +303,21 @@ usort($prestamosHerramientas, function ($a, $b) {
       <td><?= $item['fecha_prestamo'] ?></td>
       <td>
   <?php
-    $tipo = strtolower(trim($item['tipo_prestamo'] ?? ''));
-    if ($tipo === 'casa') {
-      echo '<span class="badge bg-primary">Casa</span>';
-    } elseif ($tipo === 'diario') {
-      echo '<span class="badge bg-warning text-dark">Diario</span>';
-    } else {
-      echo '<span class="badge bg-secondary">Otro</span>';
-    }
-  ?>
-</td>
-      <td>
-  <?php
     $estado = strtolower(trim($item['estado_entrega'] ?? ''));
     if ($estado === 'pendiente') {
       echo '<span style="color:white;">🔴 Pendiente</span><br>';
-      echo '<button class="btn btn-sm btn-success marcar-entregado" data-id="' . htmlspecialchars($item['id_biblioteca']?? '') . '">Marcar como entregado</button>';
+      echo '<button class="btn btn-sm btn-success marcar-entregado" data-id="' . htmlspecialchars($item['id_herramienta']) . '">Marcar como entregado</button>';
     } elseif (strpos($estado, 'entreg') !== false) {
-      echo '<span style="color:white;">🟢 Entregado</span>';
+      echo '<span style="color:green;">🟢 Entregado</span>';
     } else {
       echo '<span class="text-muted">Sin estado</span>';
     }
   ?>
 </td>
-
     </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.body.addEventListener('click', function (e) {
-      if (e.target.classList.contains('marcar-entregado')) {
-        const btn = e.target;
-        const id = btn.dataset.id;
-        const td = btn.closest('td');
-
-        fetch('marcar_entregado_herramienta.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: 'id_biblioteca=' + encodeURIComponent(id)
-
-        })
-        .then(response => response.text())
-        .then(data => {
-          if (data === 'ok') {
-            td.innerHTML = '<span style="color:green;">🟢 Entregado</span>';
-          } else {
-            alert('❌ Error al actualizar el estado');
-          }
-        });
-      }
-    });
-  });
-</script>
         </div>
       </div>
     </div>
@@ -453,14 +378,9 @@ $(document).ready(function () {
           <div class="card card-outline card-primary">
             <div class="card-header">
               <h3 class="card-title">Préstamos</h3>
-              
-               </div> 
-                 
-                 
-            
-              
-            
- <div class="card-body d-flex justify-content-center">
+              <div class="card-tools">
+                
+            <div class="card-body d-flex justify-content-center">
   <div class="table-responsive">
   <table id="example1" class="table table-hover table-dark table-bordered table-sm text-center">
     <thead>
@@ -613,12 +533,8 @@ $(document).ready(function () {
   
 </tbody>
   </table>
-  </div>  
-  
+  </div>       
 
-
-
-  <!-- hasta aca borre -->
   <script>
 function toggleCampos(tipo, personaId) {
   const libroDiv = document.getElementById('camposLibro' + personaId);
@@ -692,7 +608,11 @@ function toggleCampos(tipo, personaId) {
 
     });
 </script>
-            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <!-- Otros scripts -->
 
@@ -708,7 +628,5 @@ function toggleCampos(tipo, personaId) {
 
 <?php include('../../admin/layout/parte2.php'); ?>
 <?php include('../../layout/mensajes.php'); ?>
-
-
-
-
+</body>
+</html>

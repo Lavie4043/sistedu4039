@@ -2,6 +2,7 @@
 include('../../app/config.php');
 include('../../admin/layout/parte1.php');
 
+
 include('../../app/controllers/docentes/listado_de_docentes.php');
 include('../../app/controllers/niveles/listado_de_niveles.php');
 include('../../app/controllers/grados/listado_de_grados.php');
@@ -11,16 +12,133 @@ include('../../app/controllers/estudiantes/listado_de_estudiantes.php');
 include('../../app/controllers/docentes/listado_de_asignaciones.php');
 include('../../app/controllers/usuarios/listado_de_usuarios.php');
 include('../../app/controllers/bibliotecas/prestamos_validos.php');
+include('../../app/controllers/bibliotecas/prestamos_validos_herramientas.php');
 include('../../app/controllers/bibliotecas/prestamos_detallados.php');
+
+
+include('../../app/controllers/bibliotecas/prestamos_detallados_herramientas.php');
+include('../../app/controllers/bibliotecas/prestamos_por_tipo.php');
+
+
+
+
+// Obtener todos los préstamos detallados
+
+$prestamosDetallados = obtenerTodosLosPrestamos($pdo);
+if (!is_array($prestamosDetallados)) {
+    echo '<p class="text-danger">Error: $prestamosDetallados no es un array válido.</p>';
+}
+
+$prestamosLibros = filtrarPrestamosLibros($prestamosDetallados);
+
+$prestamosHerramientas = filtrarPrestamosHerramientas($prestamosDetallados);
 
 
 $prestamosRegistrados = array_filter($biblioteca, function($item) {
     $esLibro = $item['tipo_recurso'] === 'libro' && !empty($item['titulo']) && !empty($item['nombre_autor']) && $item['cantidad_libros'] > 0;
+    
+    
     $esHerramienta = $item['tipo_recurso'] === 'herramienta' && !empty($item['nombre_herramienta']) && $item['cantidad_herramientas'] > 0;
     return $esLibro || $esHerramienta;
 });
 
+
 ?>
+
+
+
+
+
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card card-outline card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Préstamos Registrados</h3>
+        <div class="card-tools"></div>
+      </div>
+
+
+
+      <?php if (!empty($prestamosLibros)): ?>
+  <p class="text-center text-success">✅ Se encontraron <?= count($prestamosLibros) ?> préstamos de libros.</p>
+
+  <div class="card-body d-flex justify-content-center">
+    <div class="table-responsive" style="max-width: 1000px; width: 100%; margin: auto;">
+      <table id="examplePrestamos" class="table table-hover table-dark table-bordered table-sm text-center datatable">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>DNI</th>
+            <th>USUARIO</th>
+            <th>Curso</th>
+            <th>nombre_autor</th>
+            <th>titulo</th>
+            <th>Cantidad</th>
+            <th>fecha_prestamo</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+          <?php foreach ($prestamosLibros as $index => $item): ?>
+            <tr>
+              <td><?= $index + 1 ?></td>
+              <td><?= $item['ci'] ?? '' ?></td>
+              <td><?= ($item['nombres'] ?? '') . ' ' . ($item['apellidos'] ?? '') ?></td>
+              <td><?= ($item['curso'] ?? '') . ' ' . ($item['paralelo'] ?? '') ?></td>
+              <td><?= $item['nombre_materia'] ?? '' ?></td>
+              <td><?= $item['titulo'] ?? '' ?></td>
+              <td><?= $item['cantidad_libros'] ?? '' ?></td>
+              <td><?= $item['fecha_prestamo'] ?? '' ?></td>
+              <td><?= htmlspecialchars($item['tipo_prestamo'] ?? 'diario') ?></td>
+              <td>
+  <?php
+    $tipo = strtolower(trim($item['tipo_prestamo'] ?? 'diario'));
+
+    if ($tipo === 'casa') {
+      echo '<span class="badge bg-primary">Casa</span>';
+    } elseif ($tipo === 'diario') {
+      echo '<span class="badge bg-warning text-dark">Diario</span>';
+    } else {
+      echo '<span class="badge bg-secondary">Otro</span>';
+    }
+  ?>
+</td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<?php else: ?>
+  <p class="text-center text-warning">⚠️ No hay préstamos de libros registrados.</p>
+<?php endif; ?>
+
+    </div>
+  </div>
+
+<!-- Script personalizado -->
+ <script>
+  $(document).ready(function () {
+    inicializarPrestamos();
+  });
+</script>
+<script src="/js/prestamosTable.js"></script>
+<script>
+  $(document).ready(function () {
+    inicializarPrestamos();
+  });
+</script>
+
+
+
+
+<!-- Para herramientas -->
+ <?php if (empty($prestamosHerramientas)): ?>
+  <p class="text-center text-warning">⚠️ No hay préstamos de herramientas registrados.</p>
+<?php else: ?>
+  <p class="text-center text-success">✅ Se encontraron <?= count($prestamosHerramientas) ?> préstamos de herramientas.</p>
+<?php endif; ?>
 
 
 <div class="row mb-4">
@@ -33,106 +151,88 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
 
       <div class="card-body d-flex justify-content-center">
         <div class="table-responsive" style="max-width: 1000px; width: 100%; margin: auto;">
-          <table id="examplePrestamos" class="table table-hover table-dark table-bordered table-sm text-center">
-            <thead>
-              <tr>
-                <th>N°</th>
-                <th>DNI</th>
-                <th>USUARIO</th>
-                <th>Curso</th>
-                <th>nombre_autor</th>
-                <th>titulo</th>
-                <th>Cantidad</th>
-                <th>fecha_prestamo</th>
-                <th>Acción</th>
-              </tr>
-            </thead>
-               
-            <tbody>
-           
-
-             <?php foreach ($prestamosDetallados as $index => $item): ?>
-<tr>
-  <td><?= $index + 1 ?></td>
-  <td><?= $item['ci'] ?></td>
-  <td><?= $item['nombres'] . ' ' . $item['apellidos'] ?></td>
-  <td><?= $item['curso'] . ' ' . $item['paralelo'] ?></td>
-  <td><?= $item['nombre_materia'] ?></td>
-  <td>
-    <?= $item['tipo_recurso'] === 'libro' ? $item['nombre_autor'] : '—' ?>
-  </td>
-  <td>
-    <?= $item['tipo_recurso'] === 'libro' ? $item['titulo'] : $item['nombre_herramienta'] ?>
-  </td>
-  <td>
-    <?= $item['tipo_recurso'] === 'libro' ? $item['cantidad_libros'] : $item['cantidad_herramientas'] ?>
-  </td>
-  <td><?= $item['fecha_prestamo'] ?></td>
-  <td><?= $item['fecha_devolucion'] ?? '—' ?></td>
-</tr>
-<?php endforeach; ?>
-            </tbody>
-          </table>
+          <table id="examplePrestamosHerramientas" class="table table-hover table-dark table-bordered table-sm text-center datatable">
+  <thead>
+    <tr>
+      <th>N°</th>
+      <th>DNI</th>
+      <th>USUARIO</th>
+      <th>Curso</th>
+      <th>Materia</th>
+      <th>Nombre Herramienta</th>
+      <th>Cantidad</th>
+      <th>Inventario</th>
+      <th>Fecha Préstamo</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($prestamosHerramientas as $index => $item): ?>
+    <tr>
+      <td><?= $index + 1 ?></td>
+      <td><?= $item['ci'] ?></td>
+      <td><?= $item['nombres'] . ' ' . $item['apellidos'] ?></td>
+      <td><?= $item['curso'] . ' ' . $item['paralelo'] ?></td>
+      <td><?= $item['nombre_materia'] ?></td>
+      <td><?= $item['tipo_recurso'] === 'herramienta' ? $item['nombre_herramienta'] : '—' ?></td>
+      <td><?= $item['cantidad_herramientas'] ?></td>
+      <td><?= $item['herramienta_inventario'] ?></td>
+      <td><?= $item['fecha_prestamo'] ?></td>
+      <td><!-- Botón o acción --></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <script>
-    $(function () {
-        $("#examplePrestamos").DataTable({
-            "pageLength": 5,
-            "language": {
-                "emptyTable": "No hay información",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-                "infoEmpty": "Mostrando 0 a 0 de 0 ",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-                "infoFiltered": "(Filtrado de _MAX_ total )",
-                "infoPostFix": "",
-                "thousands": ",",
-                "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
-                "lengthMenu": "Mostrar _MENU_ ",
-                "loadingRecords": "Cargando...",
-                "processing": "Procesando...",
-                "search": "Buscador:",
-                "zeroRecords": "Sin resultados encontrados",
-                "paginate": {
-                    "first": "Primero",
-                    "last": "Ultimo",
-                    "next": "Siguiente",
-                    "previous": "Anterior"
-                }
-            },
-            "responsive": true, "lengthChange": true, "autoWidth": false,
-            buttons: [{
-                extend: 'collection',
-                text: 'Reportes',
-                orientation: 'landscape',
-                buttons: [{
-                    text: 'Copiar',
-                    extend: 'copy',
-                }, {
-                    extend: 'pdf'
-                },{
-                    extend: 'csv'
-                },{
-                    extend: 'excel'
-                },{
-                    text: 'Imprimir',
-                    extend: 'print'
-                }
-                ]
-            },
-                {
-                    extend: 'colvis',
-                    text: 'Visor de columnas',
-                    collectionLayout: 'fixed three-column'
-                }
-            ],
-        }).buttons().container().appendTo('#examplePrestamos_wrapper .col-md-6:eq(0)');
-    });
+$(document).ready(function () {
+  $('#examplePrestamosHerramientas').DataTable({
+    responsive: true,
+    lengthChange: true,
+    autoWidth: false,
+    language: {
+      emptyTable: "No hay información",
+      info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+      infoEmpty: "Mostrando 0 a 0 de 0 registros",
+      infoFiltered: "(filtrado de _MAX_ registros totales)",
+      lengthMenu: "Mostrar _MENU_ registros",
+      loadingRecords: "Cargando...",
+      processing: "Procesando...",
+      search: "Buscador:",
+      zeroRecords: "Sin resultados encontrados",
+      paginate: {
+        first: "Primero",
+        last: "Último",
+        next: "Siguiente",
+        previous: "Anterior"
+      }
+    },
+    dom: 'Bfrtip',
+    buttons: [
+      {
+        extend: 'collection',
+        text: 'Reportes',
+        orientation: 'landscape',
+        buttons: [
+          { extend: 'copy', text: 'Copiar' },
+          { extend: 'pdf' },
+          { extend: 'csv' },
+          { extend: 'excel' },
+          { extend: 'print', text: 'Imprimir' }
+        ]
+      },
+      {
+        extend: 'colvis',
+        text: 'Visor de columnas',
+        collectionLayout: 'fixed three-column'
+      }
+    ]
+  });
+});
 </script>
     <!-- Para registrar -->
 
@@ -219,6 +319,17 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
               </div>
 
               <div class="form-group">
+  <label>Tipo de préstamo:</label>
+  <select name="tipo_prestamo" required>
+  <option value="diario">Diario</option>
+  <option value="casa">Casa</option>
+</select>
+
+</div>
+
+
+
+              <div class="form-group">
                 <label>Tipo de recurso:</label>
                 <select name="tipo_recurso" class="form-control" onchange="toggleCampos(this.value, <?= $persona['persona_id'] ?>)" required>
                   <option value="">-- Seleccionar --</option>
@@ -226,6 +337,7 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
                   <option value="herramienta">Herramienta</option>
                 </select>
               </div>
+
 
               <!-- Sección libro -->
               <div id="camposLibro<?= $persona['persona_id'] ?>" style="display:none;">
@@ -272,11 +384,7 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
                 <input type="date" name="fecha_prestamo" class="form-control" value="<?= date('Y-m-d') ?>">
               </div>
 
-              <div class="form-group">
-                <label>Fecha de devolución:</label>
-                <input type="date" name="fecha_devolucion" class="form-control">
-              </div>
-            </div>
+              
 
             <div class="modal-footer">
               <button type="submit" class="btn btn-success">Registrar</button>
@@ -287,7 +395,27 @@ $prestamosRegistrados = array_filter($biblioteca, function($item) {
       </div>
     </div>
   <?php endforeach; ?>
-  
+  <!-- Carga de jQuery y DataTables -->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<!-- Botones de DataTables -->
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.colVis.min.js"></script>
+
+<!-- CSS de DataTables -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+
+<!-- Tu script personalizado -->
+<script src="/js/prestamosTable.js"></script>
+<script>
+  $(document).ready(function () {
+    inicializarPrestamos();
+  });
+</script>
 </tbody>
   </table>
   </div>       
@@ -312,9 +440,7 @@ function toggleCampos(tipo, personaId) {
 
 <script>
     $(function () {
-        $("#example1").DataTable({
-            "pageLength": 5,
-            "language": {
+        $(     "language": {
                 "emptyTable": "No hay información",
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
                 "info": "Mostrando _START_ a _END_ de _TOTAL_ Usuarios",
@@ -362,7 +488,9 @@ function toggleCampos(tipo, personaId) {
                     collectionLayout: 'fixed three-column'
                 }
             ],
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        })
+            dom: 'Bfrtip'
+
     });
 </script>
             </div>
@@ -372,14 +500,25 @@ function toggleCampos(tipo, personaId) {
     </div>
 
 <!-- Otros scripts -->
+
 <script src="<?= APP_URL ?>/public/js/datatables-init.js"></script>
+<script>
+  $(document).ready(function () {
+    inicializarPrestamos(); // Tu nuevo módulo para libros
+    // inicializarHerramientas(); ← si lo creás para herramientas
+    // inicializarTabla('#example1'); ← solo si esa tabla sigue activa y tiene su propio script
+  });
+</script>
 
 <script>
   $(document).ready(function() {
+    
+    inicializarTabla('#examplePrestamosHerramientas');
     inicializarTabla('#example1');
-    inicializarTabla('#examplePrestamos');
   });
 </script>
 
 <?php include('../../admin/layout/parte2.php'); ?>
 <?php include('../../layout/mensajes.php'); ?>
+</body>
+</html>
