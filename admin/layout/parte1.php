@@ -185,7 +185,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
           <?php
-          if(($rol_sesion_usuario=="ADMINISTRADOR") || ($rol_sesion_usuario=="SECRETARIA") ||($rol_sesion_usuario=="DIRECTOR") ){ ?>
+          if(($rol_sesion_usuario=="ADMINISTRADOR") || ($rol_sesion_usuario=="SECRETARIA") ||($rol_sesion_usuario=="BIBLIOTECARIA") ){ ?>
             <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas"><i class="bi bi-gear"></i></i>
@@ -205,6 +205,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
 
           </li>
+
+<li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas"><i class="bi bi-book"></i></i>
+              <p>
+                Biblioteca
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                <a href="<?=APP_URL;?>/admin/bibliotecas/biblioteca.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Prestamos</p>
+                </a>
+              </li>
+                       
+            </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                <a href="<?=APP_URL;?>/admin/inventarios/inventario.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inventario biblioteca</p>
+                </a>
+              </li>
+                       
+            </ul>
+
+          </li>
+
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas"><i class="bi bi-bookshelf"></i></i>
@@ -359,6 +389,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <a href="<?=APP_URL;?>/admin/docentes/asignacion.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Asignaciones</p>
+                </a>
+              </li>
+
+               
+         </ul>
+              </li>
+
+              <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas"><i class="bi bi-hourglass-split"></i></i>
+              <p>
+                Egresados
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                <a href="<?=APP_URL;?>/admin/inscripciones_egresados/index_egresados.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado de Egresados</p>
+                </a>
+                </li>
+            </ul>
+            <ul class="nav nav-treeview">      
+                  <li class="nav-item">
+                <a href="<?=APP_URL;?>/admin/inscripciones_egresados/create_egresados.php" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inscripcion egresados</p>
                 </a>
               </li>
 

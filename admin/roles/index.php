@@ -34,7 +34,7 @@
             </div>
 
             <div class="card-body">
-           <table id="example1" class="table table-hover table-dark table-bordered table-sm">
+           <table id="exampleroles" class="table table-hover table-dark table-bordered table-sm">
                 <thead>
                 <body>
                                 
@@ -256,7 +256,7 @@
 
   <script>
     $(function () {
-        $("#example1").DataTable({
+        $("#exampleroles").DataTable({
             "pageLength": 5,
             "language": {
                 "emptyTable": "No hay información",

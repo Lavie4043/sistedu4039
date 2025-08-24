@@ -5,7 +5,7 @@ if (!defined('APP_NAME')) {
 }
 
 if (!defined('APP_URL')) {
-    define('APP_URL', 'http://localhost/educativo4039/');
+    define('APP_URL', 'http://localhost/educativo4039');
 }
 
 
