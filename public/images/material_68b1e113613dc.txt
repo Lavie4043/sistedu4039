@@ -1,0 +1,137 @@
+<?php
+$sql_bibliotecas = "SELECT
+  per.id_persona AS persona_id,
+  per.ci,
+  per.nombres,
+  per.apellidos,
+  r.nombre_rol AS rol,
+  CONCAT(niv.nivel, ' ', gra.curso) AS curso,
+  gra.paralelo AS paralelo,
+  niv.nivel
+FROM personas AS per
+JOIN usuarios AS usu ON usu.id_usuario = per.usuario_id
+JOIN roles AS r ON r.id_rol = usu.rol_id
+LEFT JOIN estudiantes AS est ON est.persona_id = per.id_persona
+LEFT JOIN grados AS gra ON gra.id_grado = est.grado_id
+LEFT JOIN niveles AS niv ON niv.id_nivel = gra.nivel_id";
+
+$query_bibliotecas = $pdo->prepare($sql_bibliotecas);
+$query_bibliotecas->execute();
+$bibliotecas = $query_bibliotecas->fetchAll(PDO::FETCH_ASSOC);
+
+
+modal que funciona 
+<!-- Modal individual -->
+    <div class="modal fade" id="modalPrestamo<?= $persona['persona_id'] ?>" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <form action="procesar_prestamo.php" method="POST">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title">Registrar Préstamo</h5>
+              <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <input type="hidden" name="persona_id" value="<?= $persona['persona_id'] ?>">
+
+              <div class="form-group">
+                <label>Usuario:</label>
+                <input type="text" class="form-control" value="<?= $persona['nombres'] . ' ' . $persona['apellidos'] ?>" readonly>
+              </div>
+
+              <div class="form-group">
+                <label>Curso:</label>
+                
+
+
+                <select name="grado_id" class="form-control" required>
+                  <?php foreach ($grados as $grado): ?> <option value="<?= $grado['id_grado'] ?>" <?= isset($persona['grado_id']) && $grado['id_grado'] == $persona['grado_id'] ? 'selected' : '' ?>>
+  <?= $grado['curso'] ?> - <?= $grado['paralelo'] ?>
+</option>
+
+                  <?php endforeach; ?>
+                </select>
+                
+              </div>
+
+              <div class="form-group">
+                <label>Materia:</label>
+                <select name="materia_id" class="form-control" required>
+                  <?php foreach ($materias as $materia): ?>
+                    <option value="<?= $materia['id_materia'] ?>"><?= $materia['nombre_materia'] ?></option>
+                  <?php endforeach; ?>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Tipo de recurso:</label>
+                <select name="tipo_recurso" class="form-control" onchange="toggleCampos(this.value, <?= $persona['persona_id'] ?>)" required>
+                  <option value="">-- Seleccionar --</option>
+                  <option value="libro">Libro</option>
+                  <option value="herramienta">Herramienta</option>
+                </select>
+              </div>
+
+              <!-- Sección libro -->
+              <div id="camposLibro<?= $persona['persona_id'] ?>" style="display:none;">
+                <div class="form-group">
+                  <label>Título del libro:</label>
+                  <input type="text" name="titulo" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Autor:</label>
+                  <input type="text" name="nombre_autor" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Cantidad:</label>
+                  <input type="number" name="cantidad_libros" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                  <label>Editorial (opcional):</label>
+                  <input type="text" name="editorial" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Inventario (opcional):</label>
+                  <input type="text" name="libro_inventario" class="form-control">
+                </div>
+              </div>
+
+              <!-- Sección herramienta -->
+              <div id="camposHerramienta<?= $persona['persona_id'] ?>" style="display:none;">
+                <div class="form-group">
+                  <label>Nombre de la herramienta:</label>
+                  <input type="text" name="nombre_herramienta" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label>Cantidad:</label>
+                  <input type="number" name="cantidad_herramientas" class="form-control" min="1" required>
+                </div>
+                <div class="form-group">
+                  <label>Inventario (opcional):</label>
+                  <input type="text" name="herramienta_inventario" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Fecha de préstamo:</label>
+                <input type="date" name="fecha_prestamo" class="form-control" value="<?= date('Y-m-d') ?>" required>
+              </div>
+
+              <div class="form-group">
+                <label>Fecha de devolución:</label>
+                <input type="date" name="fecha_devolucion" class="form-control" required>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Registrar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</tbody>
+  </table>
+  </div>
